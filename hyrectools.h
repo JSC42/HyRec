@@ -6,8 +6,8 @@ Also, function to make linear arrays and interpolation routines.
 #ifndef __HYRECTOOLS__
 #define __HYRECTOOLS__
 
-#define SIZE_ErrorM   2048
-double square(double x); 
+#define SIZE_ErrorM 2048
+double square(double x);
 double cube(double x);
 double *create_1D_array(unsigned n1, int *error, char error_message[SIZE_ErrorM]);
 double **create_2D_array(unsigned n1, unsigned n2, int *error, char error_message[SIZE_ErrorM]);

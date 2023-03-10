@@ -12,7 +12,7 @@
 
 #include "hydrogen.h"
 
-#define SIZE_ErrorM   2048
+#define SIZE_ErrorM 2048
 
 double rec_xesaha_HeII_III(REC_COSMOPARAMS *cosmo, double z, double *xHeIII);
 double rec_saha_xHeII(REC_COSMOPARAMS *cosmo, double z);

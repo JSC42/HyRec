@@ -15,25 +15,25 @@
 
 #define HYREC_VERSION "2020"
 
-#define MODEL SWIFT	                /* SWIFT is the default model. Four more models can be used (PEEBLES, RECFAST, EMLA2s2p, FULL). */
-                                    /* Each model is defined in hydrogen.h */
+#define MODEL SWIFT /* SWIFT is the default model. Four more models can be used (PEEBLES, RECFAST, EMLA2s2p, FULL). */
+                    /* Each model is defined in hydrogen.h */
 
 /* !!!!!  Do NOT change any numbers below unless you know what's going on with each parameter exactly !!!!! */
 
-#define SIZE_ErrorM      2048
+#define SIZE_ErrorM 2048
 
-#define DXHEII_MAX       1e-5       /* If xHeII - xHeII(Saha) < DXEHII_MAX, use post-Saha expansion for Helium.*/
-#define DXHEII_DIFF_MAX  5e-2       /* If |1-dxHeIIdlna_prev/dxHeIIdlna| > DXHEII_DIFF_MAX, do loop with 10 times smaller time step */
+#define DXHEII_MAX 1e-5      /* If xHeII - xHeII(Saha) < DXEHII_MAX, use post-Saha expansion for Helium.*/
+#define DXHEII_DIFF_MAX 5e-2 /* If |1-dxHeIIdlna_prev/dxHeIIdlna| > DXHEII_DIFF_MAX, do loop with 10 times smaller time step */
 
-#define DXHII_MAX        3e-4       /* If xHII - xHII(Saha) < DXHII_MAX, use post-Saha expansion for Hydrogen. Switch to ODE integration after that.
-                                    IMPORTANT: do not set to a lower value unless using a smaller time-step */
-#define DXHII_DIFF_MAX   5e-2       /* If |1-dxHIIdlna_prev/dxHIIdlna| > DXHII_DIFF_MAX, do loop with 10 times smaller time step */
+#define DXHII_MAX 3e-4      /* If xHII - xHII(Saha) < DXHII_MAX, use post-Saha expansion for Hydrogen. Switch to ODE integration after that. \
+                            IMPORTANT: do not set to a lower value unless using a smaller time-step */
+#define DXHII_DIFF_MAX 5e-2 /* If |1-dxHIIdlna_prev/dxHIIdlna| > DXHII_DIFF_MAX, do loop with 10 times smaller time step */
 
-#define XHEII_MIN        1e-6       /* Stop considering Helium recombination once xHeII < XHEII_MIN */
-//#define XHEII_MIN      1e-10      /* Used when calculating correction function in SWIFT mode */
+#define XHEII_MIN 1e-6 /* Stop considering Helium recombination once xHeII < XHEII_MIN */
+// #define XHEII_MIN      1e-10      /* Used when calculating correction function in SWIFT mode */
 
-#define DLNT_MAX         5e-4       /* Use the steady-state approximation for Tm as long as 1-Tm/Tr < DLNT_MAX, then switch to ODE integration */
-#define DTM_DIFF_MAX     5e-2       /* If |1-dTmdlna_prev/dTmdlna| > DTM_DIFF_MAX, evole Tm with implicit method */
+#define DLNT_MAX 5e-4     /* Use the steady-state approximation for Tm as long as 1-Tm/Tr < DLNT_MAX, then switch to ODE integration */
+#define DTM_DIFF_MAX 5e-2 /* If |1-dTmdlna_prev/dTmdlna| > DTM_DIFF_MAX, evole Tm with implicit method */
 
 void rec_get_cosmoparam(FILE *fin, FILE *fout, REC_COSMOPARAMS *param);
 
@@ -59,7 +59,7 @@ void rec_get_xe_next1_H(HYREC_DATA *data, int model, double z_in, long iz, doubl
 void rec_get_xe_next2_HTm(HYREC_DATA *data, int model, double z_in, long iz, double dxedlna_prev[2],
                           double dTmdlna_prev[2], double H, double z_out, double H_next);
 
-char* rec_build_history(HYREC_DATA *data, int model, double *hubble_array);
+char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array);
 
 void hyrec_allocate(HYREC_DATA *data, double zmax, double zmin);
 void hyrec_free(HYREC_DATA *data);
