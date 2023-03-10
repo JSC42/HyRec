@@ -13,8 +13,6 @@ typedef struct
   double pann; /* DM annihilation parameter in the smooth background and in haloes */
                           /* Units of pann and are cm^3/s/GeV */
 
-  double ann_z, ann_var; /* Parameters for the variation of pann(z) */
-
   double decay;
 
   double Mpbh, fpbh; /* Mass and fraction of DM made of primordial black holes */
