@@ -14,7 +14,6 @@ typedef struct
                           /* Units of pann and are cm^3/s/GeV */
 
   double ann_z, ann_var; /* Parameters for the variation of pann(z) */
-  double ann_z_halo;                         /* Characteristic redshift for annihilation in haloes */
 
   double decay;
 
