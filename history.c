@@ -135,7 +135,6 @@ void rec_build_history_camb_(const double *OmegaC, const double *OmegaB, const d
   rec_data.cosmo->inj_params->pann = 0.;
   rec_data.cosmo->inj_params->pann_halo = 0.;
   rec_data.cosmo->inj_params->ann_z = 1.;
-  rec_data.cosmo->inj_params->ann_zmax = 1.;
   rec_data.cosmo->inj_params->ann_zmin = 1.;
   rec_data.cosmo->inj_params->ann_var = 1.;
   rec_data.cosmo->inj_params->ann_z_halo = 1.;
@@ -387,14 +386,6 @@ void rec_get_cosmoparam(FILE *fin, FILE *fout, REC_COSMOPARAMS *param)
   {
     if (fout != NULL)
       fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'ann_z'\n");
-    exit(1);
-  };
-  if (fout != NULL)
-    fprintf(fout, "ann_zmax: \n");
-  if (fscanf(fin, "%lg", &(param->inj_params->ann_zmax)) != 1)
-  {
-    if (fout != NULL)
-      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'ann_zmax'\n");
     exit(1);
   };
   if (fout != NULL)

@@ -20,48 +20,7 @@ in the smooth background and in haloes as in Giesen et al 1209.0247
 
 double dEdtdV_DM_ann(double z, INJ_PARAMS *params)
 {
-
-  double pann_tot, u_min, erfc;
-  double zp1, zp1_ann, zp1_max, zp1_min, var, zp1_halo;
-
-  var = params->ann_var;
-  zp1 = z + 1.;
-  zp1_ann = params->ann_z + 1.;
-  zp1_max = params->ann_zmax + 1.;
-  zp1_halo = params->ann_z_halo + 1.;
-  zp1_min = params->ann_zmin + 1.;
-
-  pann_tot = 0.;
-
-  /* Dark matter annihilation in the smooth background */
-  if (params->pann > 0.)
-  {
-
-    /* Parametrized variation of pann */
-    if (zp1 > zp1_max)
-      pann_tot = params->pann * exp(-var * square(log(zp1_ann / zp1_max)));
-    else if (zp1 > zp1_min)
-    {
-      pann_tot = params->pann * exp(var * (-square(log(zp1_ann / zp1_max)) + square(log(zp1 / zp1_max))));
-    }
-    else
-    {
-      pann_tot = params->pann * exp(var * (-square(log(zp1_ann / zp1_max)) + square(log(zp1_min / zp1_max))));
-    }
-    pann_tot = pann_tot * pow(zp1, 3.);
-  }
-
-  /* Dark matter annihilation in haloes */
-  if (params->pann_halo > 0.)
-  {
-    u_min = zp1 / zp1_halo;
-    erfc = pow(1. + 0.278393 * u_min + 0.230389 * u_min * u_min + 0.000972 * u_min * u_min * u_min + 0.078108 * u_min * u_min * u_min * u_min, -4);
-    pann_tot += params->pann_halo * erfc;
-  }
-
-  return square(10537.4 * params->odmh2) * zp1 * zp1 * zp1 * 1e-9 * pann_tot + 10537.4 * params->odmh2 * pow((1 + z), 3) * params->decay;
-  /* the prefactor is 3 H100^2/(8 Pi G) c^2 in eV/cm^3, H100 = 100km/s/Mpc */
-  /* pann is given in cm^3/s/GeV, multiply by 1e-9 to get cm^3/s/eV */
+  return 0.0;
 }
 
 /***************************************************************************************
