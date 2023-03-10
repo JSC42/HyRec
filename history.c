@@ -133,7 +133,6 @@ void rec_build_history_camb_(const double *OmegaC, const double *OmegaB, const d
   /* It seems there are no parameters related to DM annihilation in CAMB
      So, following parameters (inj_params) are meaningless here          */
   rec_data.cosmo->inj_params->pann = 0.;
-  rec_data.cosmo->inj_params->pann_halo = 0.;
   rec_data.cosmo->inj_params->ann_z = 1.;
   rec_data.cosmo->inj_params->ann_var = 1.;
   rec_data.cosmo->inj_params->ann_z_halo = 1.;
@@ -369,14 +368,6 @@ void rec_get_cosmoparam(FILE *fin, FILE *fout, REC_COSMOPARAMS *param)
   {
     if (fout != NULL)
       fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'pann'\n");
-    exit(1);
-  };
-  if (fout != NULL)
-    fprintf(fout, "pann_halo: \n");
-  if (fscanf(fin, "%lg", &(param->inj_params->pann_halo)) != 1)
-  {
-    if (fout != NULL)
-      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'pann_halo'\n");
     exit(1);
   };
   if (fout != NULL)
