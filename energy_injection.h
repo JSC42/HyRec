@@ -13,7 +13,7 @@ typedef struct
   double pann, pann_halo; /* DM annihilation parameter in the smooth background and in haloes */
                           /* Units of pann and pann_halo are cm^3/s/GeV */
 
-  double ann_z, ann_zmin, ann_var; /* Parameters for the variation of pann(z) */
+  double ann_z, ann_var; /* Parameters for the variation of pann(z) */
   double ann_z_halo;                         /* Characteristic redshift for annihilation in haloes */
 
   double decay;
