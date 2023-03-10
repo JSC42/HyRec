@@ -20,10 +20,10 @@
 0.
 0.
 0.
-0
-0.
+1
+1.0E-23
 
-1.
+1
 0.
 
 
@@ -34,10 +34,10 @@ correspond to the following inputs.
 All parameters must be present 
 =====================================================================
 
-0.70     = h                         H0/(100 km/s/Mpc)
+0.6766   = h                         H0/(100 km/s/Mpc)
 2.7255   = T0                        CMB temperature today, in K
-0.04     = Omega_b                   baryon density parameter
-0.26     = Omega_cb                  matter (baryon + CDM) density parameter
+0.049    = Omega_b                   baryon density parameter
+0.3111   = Omega_cb                  matter (baryon + CDM) density parameter
 0.       = Omega_k                   curvature density parameter   -- Omega_Lambda is deduced from these
 -1, 0    = w0, wa                    dark energy equation of state parameters
 1.       = Nmnu                      number of massive neutrino
