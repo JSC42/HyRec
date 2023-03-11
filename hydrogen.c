@@ -518,7 +518,6 @@ double rec_swift_hyrec_dxHIIdlna(HYREC_DATA *data, double xe, double xHII, doubl
     strcat(data->error_message, sub_message);
     return 0.;
   }
-
   return -nH / H * ((s * (1. - xHII) * DAlpha[0] + Alpha[0] * Dxe2) * C_2s + (s * (1. - xHII) * DAlpha[1] + Alpha[1] * Dxe2) * C_2p) + (cosmo->inj_params->ion + (0.25 * (1. - C_2s) + 0.75 * (1. - C_2p)) * cosmo->inj_params->exclya) / H;
 }
 
@@ -574,7 +573,6 @@ double rec_HMLA_dxHIIdlna(HYREC_DATA *data, double xe, double xHII, double nH, d
 
   s = SAHA_FACT(fsR, meR) * TR * sqrt(TR) * exp(-EI / TR) / nH;
   Dxe2 = xe * xHII - s * (1. - xHII); /* xe^2 - xe^2[Saha eq with 1s] -- gives more compact expressions */
-
   return -nH / H * ((s * (1. - xHII) * DAlpha[0] + Alpha[0] * Dxe2) * C2s + (s * (1. - xHII) * DAlpha[1] + Alpha[1] * Dxe2) * C2p) + (cosmo->inj_params->ion + (0.25 * (1. - C2s) + 0.75 * (1. - C2p)) * cosmo->inj_params->exclya) / H;
 }
 
@@ -1085,7 +1083,6 @@ double rec_HMLA_2photon_dxHIIdlna(HYREC_DATA *data, double xe, double xHII, doub
     free(Tvr[i]);
   for (i = 0; i < 3; i++)
     free(Tvv[i]);
-
   return dxedlna;
 }
 

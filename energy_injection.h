@@ -17,14 +17,8 @@ typedef struct
 
   double Mpbh, fpbh; /* Mass and fraction of DM made of primordial black holes */
 
-  int on_the_spot; /* if set to 1 assume energy deposition rate = injection rate */
-                   /* Otherwise solves for deposition given injection with simple recipe */
-
   double ion, exclya;
 
 } INJ_PARAMS;
-
-void update_dEdtdV_dep(double z_out, double dlna, double xe, double Tgas,
-                       double nH, double H, INJ_PARAMS *params, double *dEdtdV_dep);
 
 #endif
