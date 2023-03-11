@@ -13,6 +13,7 @@
 
 1.
 1.
+1.
 0.
 0.0
 
@@ -44,7 +45,8 @@ All parameters must be present
                                      If it's not 1, a smaller timestep might be needed. Decrease timestep in history.h if needed.
 1.       = me(rec)/me(today)         ratio of electron mass at recombination to today's value
 
-0.       = pann = f<sigma v>/m_DM    dark matter annihilation parameter, in cm^3/s/GeV
+1.       = Mdm                       dark matter mass in GeV
+0.       = pann = <sigma v>/Mdm    dark matter annihilation parameter, in cm^3/s/GeV
 0.       = decay                     DM decay, in 1/s
 
 1.       = Mpbh                      primordial black hole mass in solar masses

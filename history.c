@@ -132,6 +132,7 @@ void rec_build_history_camb_(const double *OmegaC, const double *OmegaB, const d
 
   /* It seems there are no parameters related to DM annihilation in CAMB
      So, following parameters (inj_params) are meaningless here          */
+  rec_data.cosmo->inj_params->Mdm = 0.;
   rec_data.cosmo->inj_params->pann = 0.;
   rec_data.cosmo->inj_params->decay = 0.;
 
@@ -220,82 +221,60 @@ void rec_get_cosmoparam(FILE *fin, FILE *fout, REC_COSMOPARAMS *param)
 {
   double Omega_b, Omega_cb, Omega_k, y, Tnu0;
   int i;
-  if (fout != NULL)
-    fprintf(fout, "Enter Hubble parameter (h) : \n");
   if (fscanf(fin, "%lg", &(param->h)) != 1)
   {
     if (fout != NULL)
       fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'h'\n");
     exit(1);
   };
-  if (fout != NULL)
-    fprintf(fout, "Enter CMB temperature today [Kelvin]: \n");
   if (fscanf(fin, "%lg", &(param->T0)) != 1)
   {
     if (fout != NULL)
       fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'CMB temperature today [Kelvin]'\n");
     exit(1);
   };
-
-  if (fout != NULL)
-    fprintf(fout, "Enter baryon density, Omega_b: \n");
   if (fscanf(fin, "%lg", &(Omega_b)) != 1)
   {
     if (fout != NULL)
       fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Omega_b'\n");
     exit(1);
   };
-  if (fout != NULL)
-    fprintf(fout, "Enter matter (CDM+baryons) density, Omega_cb: \n");
   if (fscanf(fin, "%lg", &(Omega_cb)) != 1)
   {
     if (fout != NULL)
       fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Omega_cb'\n");
     exit(1);
   };
-  if (fout != NULL)
-    fprintf(fout, "Enter curvature, Omega_k: \n");
   if (fscanf(fin, "%lg", &(Omega_k)) != 1)
   {
     if (fout != NULL)
       fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Omega_k'\n");
     exit(1);
   };
-  if (fout != NULL)
-    fprintf(fout, "Enter dark energy equation of state parameters, w wa: ");
   if (fscanf(fin, "%lg %lg", &(param->w0), &(param->wa)) != 2)
   {
     if (fout != NULL)
       fprintf(fout, "Error in rec_get_cosmoparam when reading parameters 'w wa'\n");
     exit(1);
   };
-
-  if (fout != NULL)
-    fprintf(fout, "Enter number of massive neutrino species, Nmnu: \n");
   if (fscanf(fin, "%lg", &(param->Nmnu)) != 1)
   {
     if (fout != NULL)
       fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Nmnu'\n");
     exit(1);
   };
-  if (fout != NULL)
-    fprintf(fout, "Enter mass of neutrino1, mnu: \n");
   if (fscanf(fin, "%lg", &(param->mnu[0])) != 1)
   {
     if (fout != NULL)
       fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'mnu1'\n");
     exit(1);
   };
-  if (fout != NULL)
-    fprintf(fout, "Enter mass of neutrino2, mnu: \n");
   if (fscanf(fin, "%lg", &(param->mnu[1])) != 1)
   {
     if (fout != NULL)
       fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'mnu2'\n");
     exit(1);
   };
-  if (fout != NULL)
-    fprintf(fout, "Enter mass of neutrino3, mnu: \n");
   if (fscanf(fin, "%lg", &(param->mnu[2])) != 1)
   {
     if (fout != NULL)
@@ -303,33 +282,24 @@ void rec_get_cosmoparam(FILE *fin, FILE *fout, REC_COSMOPARAMS *param)
     exit(1);
   };
 
-  if (fout != NULL)
-    fprintf(fout, "Enter primordial helium mass fraction, Y: \n");
   if (fscanf(fin, "%lg", &(param->YHe)) != 1)
   {
     if (fout != NULL)
       fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Y'\n");
     exit(1);
   };
-  if (fout != NULL)
-    fprintf(fout, "Enter total effective number of neutrino species, N_eff: \n");
   if (fscanf(fin, "%lg", &(param->Neff)) != 1)
   {
     if (fout != NULL)
       fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'N_eff'\n");
     exit(1);
   };
-
-  if (fout != NULL)
-    fprintf(fout, "ratio of fine structure constant at recombination to today's value, fsR: \n");
   if (fscanf(fin, "%lg", &(param->fsR)) != 1)
   {
     if (fout != NULL)
       fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'fsR'\n");
     exit(1);
   };
-  if (fout != NULL)
-    fprintf(fout, "ratio of electron mass at recombination to today's value, meR: \n");
   if (fscanf(fin, "%lg", &(param->meR)) != 1)
   {
     if (fout != NULL)
@@ -358,17 +328,18 @@ void rec_get_cosmoparam(FILE *fin, FILE *fout, REC_COSMOPARAMS *param)
   param->nH0 = 11.223846333047e-6 * param->obh2 * (1. - param->YHe); // number density of hudrogen today in cm-3
   param->fHe = param->YHe / (1 - param->YHe) / 3.97153;              // abundance of helium by number
 
-  if (fout != NULL)
-    fprintf(fout, "dark matter annihilation parameter, in cm^3/s/GeV, pann: \n");
+  if (fscanf(fin, "%lg", &(param->inj_params->Mdm)) != 1)
+  {
+    if (fout != NULL)
+      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Mdm'\n");
+    exit(1);
+  }
   if (fscanf(fin, "%lg", &(param->inj_params->pann)) != 1)
   {
     if (fout != NULL)
       fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'pann'\n");
     exit(1);
   };
-
-  if (fout != NULL)
-    fprintf(fout, "decay: \n");
   if (fscanf(fin, "%lg", &(param->inj_params->decay)) != 1)
   {
     if (fout != NULL)
@@ -376,16 +347,12 @@ void rec_get_cosmoparam(FILE *fin, FILE *fout, REC_COSMOPARAMS *param)
     exit(1);
   };
 
-  if (fout != NULL)
-    fprintf(fout, "Mpbh: \n");
   if (fscanf(fin, "%lg", &(param->inj_params->Mpbh)) != 1)
   {
     if (fout != NULL)
       fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Mpbh'\n");
     exit(1);
   };
-  if (fout != NULL)
-    fprintf(fout, "fpbh: \n");
   if (fscanf(fin, "%lg", &(param->inj_params->fpbh)) != 1)
   {
     if (fout != NULL)
@@ -410,7 +377,7 @@ The input and output temperatures are in KELVIN.
 Added December 2014: possibility for additional energy deposition dEdtdV in eV/s/cm^3.
 ******************************************************************************************/
 
-double rec_Tmss(double z, double xe, REC_COSMOPARAMS *cosmo, double dEdtdV, double H)
+double rec_Tmss(double z, double xe, REC_COSMOPARAMS *cosmo, double dEdtdV_Heat, double H)
 {
 
   double fsR = cosmo->fsR;
@@ -421,8 +388,7 @@ double rec_Tmss(double z, double xe, REC_COSMOPARAMS *cosmo, double dEdtdV, doub
   /* Coefficient = 8 sigma_T a_r / (3 m_e c) */
   /* Here Tr, Tm are the actual (not rescaled) temperatures */
   double coeff = fsR * fsR / meR / meR / meR * 4.91466895548409e-22 * Tr * Tr * Tr * Tr * xe / (1. + xe + cosmo->fHe) / H;
-  double Tm = Tr / (1. + 1. / coeff) + (1. + 2. * xe) / 3. * dEdtdV / kBoltz / (1.5 * nH * (1. + xe + cosmo->fHe)) / H / (1. + coeff);
-
+  double Tm = Tr / (1. + 1. / coeff) + dEdtdV_Heat / kBoltz / (1.5 * nH * (1. + xe + cosmo->fHe)) / H / (1. + coeff);
   return Tm;
 }
 
@@ -435,25 +401,29 @@ be some flag for quasi-steady-state, will eventually fix.
 Added December 2014: possibility of additional energy deposition dEdtdV in eV/s/cm^3.
 ******************************************************************************************/
 
-double rec_dTmdlna(double z, double xe, double Tm, REC_COSMOPARAMS *cosmo, double dEdtdV, double H)
+double rec_dTmdlna(double z, double xe, double Tm, REC_COSMOPARAMS *cosmo, double dEdtdV_Heat, double H)
 {
   double fsR = cosmo->fsR;
   double meR = cosmo->meR;
   double Tr = cosmo->T0 * (1. + z);
   double nH = cosmo->nH0 * cube(1. + z);
-  return ((Tr / Tm - 1. < 1e-10 && Tr > 3000.) ? -Tr : -2. * Tm + fsR * fsR / meR / meR / meR * 4.91466895548409e-22 * Tr * Tr * Tr * Tr * xe / (1. + xe + cosmo->fHe) * (Tr - Tm) / H + (1. + 2. * xe) / 3. * dEdtdV / kBoltz / (1.5 * nH * (1. + xe + cosmo->fHe)) / H);
+  double Q_adia = -2. * Tm;
+  double Q_compt = fsR * fsR / meR / meR / meR * 4.91466895548409e-22 * Tr * Tr * Tr * Tr * xe / (1. + xe + cosmo->fHe) * (Tr - Tm) / H;
+  double Q_dm =  dEdtdV_Heat / kBoltz / (1.5 * nH * (1. + xe + cosmo->fHe)) / H;
+  // return ((Tr / Tm - 1. < 1e-10 && Tr > 3000.) ? -Tr : -2. * Tm + fsR * fsR / meR / meR / meR * 4.91466895548409e-22 * Tr * Tr * Tr * Tr * xe / (1. + xe + cosmo->fHe) * (Tr - Tm) / H + (1. + 2. * xe) / 3. * dEdtdV / kBoltz / (1.5 * nH * (1. + xe + cosmo->fHe)) / H);
+  return ((Tr / Tm - 1. < 1e-10 && Tr > 3000.) ? -Tr : Q_adia + Q_compt + Q_dm);
   /* Coefficient = 8 sigma_T a_r / (3 m_e c) */
   /* Here Tr, Tm are the actual (not rescaled) temperatures */
 }
 
-double Tm_implicit(double z, double xe, double Tm, REC_COSMOPARAMS *cosmo, double dEdtdV, double H, double DLNA)
+double Tm_implicit(double z, double xe, double Tm, REC_COSMOPARAMS *cosmo, double dEdtdV_Heat, double H, double DLNA)
 {
   double fsR = cosmo->fsR;
   double meR = cosmo->meR;
   double Tr = cosmo->T0 * (1. + z);
   double nH = cosmo->nH0 * cube(1. + z);
   double gamma = fsR * fsR / meR / meR / meR * 4.91466895548409e-22 * Tr * Tr * Tr * Tr * xe / (1. + xe + cosmo->fHe) / H;
-  return (Tm + DLNA * (gamma * Tr + (1. + 2. * xe) / 3. * dEdtdV / kBoltz / (1.5 * nH * (1. + xe + cosmo->fHe)) / H)) / (1. + (2. + gamma) * DLNA);
+  return (Tm + DLNA * (gamma * Tr + dEdtdV_Heat / kBoltz / (1.5 * nH * (1. + xe + cosmo->fHe)) / H)) / (1. + (2. + gamma) * DLNA);
 }
 
 /************************************************************************
@@ -704,7 +674,7 @@ void rec_get_xe_next1_H(HYREC_DATA *data, int model, double z_in, long iz, doubl
   long iz_rad = iz - 1 - data->rad->iz_rad_0;
 
   double dxedlna, z_out;
-  double nH, TR, xH1, dEdtdV, DLNA;
+  double nH, TR, xH1, dEdtdV_Heat, DLNA;
   char sub_message[SIZE_ErrorM];
   if (flag == 10)
     DLNA = cosmo->dlna;
@@ -715,7 +685,7 @@ void rec_get_xe_next1_H(HYREC_DATA *data, int model, double z_in, long iz, doubl
   nH = cosmo->nH0 * cube(1. + z_in);
   TR = kBoltz * cosmo->T0 * (1. + z_in);
 
-  dEdtdV = cosmo->inj_params->ion * 3 * nH * EI / (1 - xe_in);
+  dEdtdV_Heat = dEdVdt_deposited(z_in, cosmo->inj_params, 4);
   /* Compute dxHII/dlna. This also correctly updates the radiation field at z_in,
      which is required even when using the stiff approximation */
 
@@ -736,7 +706,7 @@ void rec_get_xe_next1_H(HYREC_DATA *data, int model, double z_in, long iz, doubl
   }
 
   /* Quasi-steady state solution for Tm */
-  *Tm_out = rec_Tmss(z_out, *xe_out, cosmo, dEdtdV, H);
+  *Tm_out = rec_Tmss(z_out, *xe_out, cosmo, dEdtdV_Heat, H);
 
   // Test that the outcome is sensible
   if (*xe_out > 1. || *xe_out < 0. || *xe_out != *xe_out)
@@ -772,13 +742,13 @@ void rec_get_xe_next2_HTm(HYREC_DATA *data, int model, double z_in, long iz, dou
   int *error = &data->error;
   long iz_rad = iz - 1 - data->rad->iz_rad_0;
 
-  double dxedlna, dTmdlna, nH, TR, dEdtdV, DLNA;
+  double dxedlna, dTmdlna, nH, TR, dEdtdV_Heat, DLNA;
   char sub_message[SIZE_ErrorM];
   DLNA = cosmo->dlna;
 
   nH = cosmo->nH0 * cube(1. + z_in);
   TR = kBoltz * cosmo->T0 * (1. + z_in);
-  dEdtdV = cosmo->inj_params->ion * 3 * nH * EI / (1 - xe_in);
+  dEdtdV_Heat = dEdVdt_deposited(z_in, cosmo->inj_params, 4);
   /*For low redshifts (z < 20 or so) use Peeble's model.
     The precise model does not metter much here as
     1) the free electron fraction is basically zero (~1e-4) in any case and
@@ -788,7 +758,7 @@ void rec_get_xe_next2_HTm(HYREC_DATA *data, int model, double z_in, long iz, dou
     model = PEEBLES;
   dxedlna = rec_dxHIIdlna(data, model, xe_in, xe_in, nH, H, kBoltz * Tm_in, TR, iz_rad, z_in);
 
-  dTmdlna = rec_dTmdlna(z_in, xe_in, Tm_in, cosmo, dEdtdV, H);
+  dTmdlna = rec_dTmdlna(z_in, xe_in, Tm_in, cosmo, dEdtdV_Heat, H);
 
   data->Tm_evolve_implicit = 1;
   if (fabs(1 - dTmdlna_prev[0] / dTmdlna) < DTM_DIFF_MAX)
@@ -798,7 +768,7 @@ void rec_get_xe_next2_HTm(HYREC_DATA *data, int model, double z_in, long iz, dou
     dTmdlna_prev[0] = dTmdlna;
     dTmdlna_prev[1] = dTmdlna_prev[0];
     data->xe_output[iz] = xe_in + DLNA * hyrec_integrator(dxedlna, dxedlna_prev, z_in);
-    data->Tm_output[iz] = Tm_implicit(z_out, data->xe_output[iz], Tm_in, cosmo, dEdtdV, H_next, DLNA);
+    data->Tm_output[iz] = Tm_implicit(z_out, data->xe_output[iz], Tm_in, cosmo, dEdtdV_Heat, H_next, DLNA);
   }
   else
   {
@@ -836,7 +806,7 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
   long iz;
   double dxHIIdlna_prev[2], dTmdlna_prev[2], dxHeIIdlna_prev[2];
   double dxHIIdlna_prev_sub[2], dxHeIIdlna_prev_sub[2], xHeII_prev[4];
-  double z, dz, DLNA, Delta_xe, xHeII, xH1, dEdtdV_dep, nH, H;
+  double z, dz, DLNA, Delta_xe, xHeII, xH1, nH, H, dEdtdV_Heat;
   double *ion = &cosmo->inj_params->ion;
   double *exclya = &cosmo->inj_params->exclya;
   double z_out = 0., H_next;
@@ -946,7 +916,6 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
   data->quasi_eq = 1;
 
   // Initialize energy *deposition*
-  dEdtdV_dep = 0.;
   nH = cosmo->nH0 * cube(1. + z);
 
   if (hubble_array[0] == -1.)
@@ -954,10 +923,9 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
   else
     H = rec_interp1d(.0, dz, hubble_array, Nz, z, error, data->error_message);
 
-  //update_dEdtdV_dep(z, DLNA, xe_output[iz - 1], Tm_output[iz - 1], nH, H, cosmo->inj_params, &dEdtdV_dep);
-  *ion = dEdtdV_dep / 3. / nH * xH1 / EI;
-  *exclya = *ion / 0.75;
-
+  *ion = dEdVdt_deposited(z, cosmo->inj_params, 1) / nH / EI;
+  *exclya = dEdVdt_deposited(z, cosmo->inj_params, 3) / nH / E21;
+  
   for (; z >= 0. && xHeII > XHEII_MIN; iz++)
   {
 
@@ -972,11 +940,12 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
       H = rec_interp1d(.0, dz, hubble_array, Nz, z, error, data->error_message);
 
     nH = cosmo->nH0 * cube(1. + z);
-    Tm_output[iz] = rec_Tmss(z, xe_output[iz], cosmo, dEdtdV_dep, H);
-    // update_dEdtdV_dep(z, DLNA, xe_output[iz], Tm_output[iz], nH, H, cosmo->inj_params, &dEdtdV_dep);
-    *ion = dEdtdV_dep / 3. / nH * xH1 / EI;
-    *exclya = *ion / 0.75;
-
+    dEdtdV_Heat = dEdVdt_deposited(z, cosmo->inj_params, 4);
+    Tm_output[iz] = rec_Tmss(z, xe_output[iz], cosmo, dEdtdV_Heat, H);
+  
+    *ion = dEdVdt_deposited(z, cosmo->inj_params, 1) / nH / EI;
+    *exclya = dEdVdt_deposited(z, cosmo->inj_params, 3) / nH / E21;
+  
     if (*error == 1)
       return data->error_message;
   }
@@ -1004,10 +973,10 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
           H = rec_HubbleRate(cosmo, z);
         else
           H = rec_interp1d(.0, dz, hubble_array, Nz, z, error, data->error_message);
-
-        // update_dEdtdV_dep(z, DLNA / 10., xe_i, Tm_i, nH, H, cosmo->inj_params, &dEdtdV_dep);
-        *ion = dEdtdV_dep / 3. / nH * (1. - xe_i) / EI;
-        *exclya = *ion / 0.75;
+        
+        *ion = dEdVdt_deposited(z, cosmo->inj_params, 1) / nH / EI;
+        *exclya = dEdVdt_deposited(z, cosmo->inj_params, 3) / nH / E21;
+  
       }
       xe_output[iz] = xe_i;
       Tm_output[iz] = Tm_i;
@@ -1036,9 +1005,9 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
       else
         H = rec_interp1d(.0, dz, hubble_array, Nz, z, error, data->error_message);
 
-      // update_dEdtdV_dep(z, DLNA, xe_output[iz], Tm_output[iz], nH, H, cosmo->inj_params, &dEdtdV_dep);
-      *ion = dEdtdV_dep / 3. / nH * (1. - xe_output[iz]) / EI;
-      *exclya = *ion / 0.75;
+      *ion = dEdVdt_deposited(z, cosmo->inj_params, 1) / nH / EI;
+      *exclya = dEdVdt_deposited(z, cosmo->inj_params, 3) / nH / E21;
+  
     }
     if (*error == 1)
       return data->error_message;
@@ -1085,9 +1054,9 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
         H_next = H;
     }
     nH = cosmo->nH0 * cube(1. + z);
-    // update_dEdtdV_dep(z, DLNA, xe_output[iz], Tm_output[iz], nH, H, cosmo->inj_params, &dEdtdV_dep);
-    *ion = dEdtdV_dep / 3. / nH * (1. - xe_output[iz]) / EI;
-    *exclya = *ion / 0.75;
+
+    *ion = dEdVdt_deposited(z, cosmo->inj_params, 1) / nH / EI;
+    *exclya = dEdVdt_deposited(z, cosmo->inj_params, 3) / nH / E21;
 
     if (*error == 1)
       return data->error_message;

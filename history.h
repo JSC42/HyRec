@@ -39,11 +39,11 @@ void rec_get_cosmoparam(FILE *fin, FILE *fout, REC_COSMOPARAMS *param);
 
 double rec_HubbleRate(REC_COSMOPARAMS *param, double z);
 
-double rec_Tmss(double z, double xe, REC_COSMOPARAMS *cosmo, double dEdtdV, double H);
+double rec_Tmss(double z, double xe, REC_COSMOPARAMS *cosmo, double dEdtdV_Heat, double H);
 
-double rec_dTmdlna(double z, double xe, double Tm, REC_COSMOPARAMS *cosmo, double dEdtdV, double H);
+double rec_dTmdlna(double z, double xe, double Tm, REC_COSMOPARAMS *cosmo, double dEdtdV_Heat, double H);
 
-double Tm_implicit(double z, double xe, double Tm, REC_COSMOPARAMS *cosmo, double dEdtdV, double H, double DLNA);
+double Tm_implicit(double z, double xe, double Tm, REC_COSMOPARAMS *cosmo, double dEdtdV_Heat, double H, double DLNA);
 
 void rec_get_xe_next1_He(HYREC_DATA *data, double z_in, double *xHeII, double dxHeIIdlna_prev[2],
                          double *hubble_array, int flag);
