@@ -845,11 +845,6 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
 
   DLNA = cosmo->dlna;
   dz = zstart / Nz;
-  // jsc: removing all original energy injection features
-  *exclya = 0.0;
-  *ion = 0.0;
-  dEdtdV_dep = 0.;
-   
   // Index at which we start integrating Hydrogen recombination, and corresponding redshift
   data->rad->iz_rad_0 = (long)floor(1 + log(kBoltz * cosmo->T0 / square(cosmo->fsR) / cosmo->meR * (1. + zstart) / TR_MAX) / DLNA);
   data->rad->z0 = (1. + zstart) * exp(-data->rad->iz_rad_0 * DLNA) - 1.;
@@ -862,7 +857,6 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
     z = (1. + zstart) * exp(-cosmo->dlna * iz) - 1.;
     xe_output[iz] = rec_xesaha_HeII_III(cosmo, z, &Delta_xe);
     Tm_output[iz] = cosmo->T0 * (1. + z);
-    printf("Stage_1 %f  %f  %f\n", z, xe_output[iz], Tm_output[iz]);// jsc
   }
 
   /******** He II -> I recombination.
@@ -934,7 +928,6 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
 
       Tm_output[iz] = rec_Tmss(z, xe_output[iz], cosmo, 0., H);
     }
-    printf("Stage_2 %f  %f  %f\n", z, xe_output[iz], Tm_output[iz]);// jsc
 
     if (*error == 1)
       return data->error_message;
@@ -953,12 +946,17 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
   data->quasi_eq = 1;
 
   // Initialize energy *deposition*
+  dEdtdV_dep = 0.;
   nH = cosmo->nH0 * cube(1. + z);
 
   if (hubble_array[0] == -1.)
     H = rec_HubbleRate(cosmo, z);
   else
     H = rec_interp1d(.0, dz, hubble_array, Nz, z, error, data->error_message);
+
+  //update_dEdtdV_dep(z, DLNA, xe_output[iz - 1], Tm_output[iz - 1], nH, H, cosmo->inj_params, &dEdtdV_dep);
+  *ion = dEdtdV_dep / 3. / nH * xH1 / EI;
+  *exclya = *ion / 0.75;
 
   for (; z >= 0. && xHeII > XHEII_MIN; iz++)
   {
@@ -975,8 +973,9 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
 
     nH = cosmo->nH0 * cube(1. + z);
     Tm_output[iz] = rec_Tmss(z, xe_output[iz], cosmo, dEdtdV_dep, H);
-    printf("Stage_3 %f  %f  %f\n", z, xe_output[iz], Tm_output[iz]);// jsc
-
+    // update_dEdtdV_dep(z, DLNA, xe_output[iz], Tm_output[iz], nH, H, cosmo->inj_params, &dEdtdV_dep);
+    *ion = dEdtdV_dep / 3. / nH * xH1 / EI;
+    *exclya = *ion / 0.75;
 
     if (*error == 1)
       return data->error_message;
@@ -1006,6 +1005,9 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
         else
           H = rec_interp1d(.0, dz, hubble_array, Nz, z, error, data->error_message);
 
+        // update_dEdtdV_dep(z, DLNA / 10., xe_i, Tm_i, nH, H, cosmo->inj_params, &dEdtdV_dep);
+        *ion = dEdtdV_dep / 3. / nH * (1. - xe_i) / EI;
+        *exclya = *ion / 0.75;
       }
       xe_output[iz] = xe_i;
       Tm_output[iz] = Tm_i;
@@ -1034,9 +1036,10 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
       else
         H = rec_interp1d(.0, dz, hubble_array, Nz, z, error, data->error_message);
 
+      // update_dEdtdV_dep(z, DLNA, xe_output[iz], Tm_output[iz], nH, H, cosmo->inj_params, &dEdtdV_dep);
+      *ion = dEdtdV_dep / 3. / nH * (1. - xe_output[iz]) / EI;
+      *exclya = *ion / 0.75;
     }
-    printf("Stage_4 %f  %f  %f\n", z, xe_output[iz], Tm_output[iz]);// jsc
-
     if (*error == 1)
       return data->error_message;
   }
@@ -1082,11 +1085,12 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
         H_next = H;
     }
     nH = cosmo->nH0 * cube(1. + z);
+    // update_dEdtdV_dep(z, DLNA, xe_output[iz], Tm_output[iz], nH, H, cosmo->inj_params, &dEdtdV_dep);
+    *ion = dEdtdV_dep / 3. / nH * (1. - xe_output[iz]) / EI;
+    *exclya = *ion / 0.75;
 
     if (*error == 1)
       return data->error_message;
-    printf("Stage_5 %f  %f  %f\n", z, xe_output[iz], Tm_output[iz]);// jsc
-    
   }
   return data->error_message;
 }
