@@ -26,7 +26,7 @@ typedef struct
                     4 - Muon
                     5 - Tau
                     6 - Q
-                    7 - CHarm
+                    7 - Charm
                     8 - Bottom
                     9 - Top
                     10 - W
