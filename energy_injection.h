@@ -14,17 +14,25 @@ typedef struct
   double pann;  /* DM annihilation parameter in the smooth background and in haloes */
                 /* Units of pann are cm^3/s/GeV */
   double decay; // DM decay width in s^-1
-  double DM_Channel;/* DM decay/annihilation channel
-                    1 : Gamma
-                    2 : Electron
-                    3 : Higgs
-                    4 : Muon
-                    More on the way
-                    */
   double Mpbh, fpbh; /* Mass and fraction of DM made of primordial black holes */
 
   double ion; // dEdVdt_HIon / nH / EI
   double exclya; // dEdVdt_LyA / nH / E21
+
+  double DM_Channel;/* DM decay/annihilation channel
+                    1 - Photon
+                    2 - Electron
+                    3 - Higgs
+                    4 - Muon
+                    5 - Tau
+                    6 - Q
+                    7 - CHarm
+                    8 - Bottom
+                    9 - Top
+                    10 - W
+                    11 - Z
+                    12 - Gluon
+                    */
 
 } INJ_PARAMS;
 

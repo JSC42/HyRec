@@ -1,4 +1,4 @@
-cd /Users/cangtao/IHEPBox/Projects/GitHub/HyRec/DarkSide_src
+cd /Users/cangtao/IHEPBox/Projects/GitHub/HyRec/DarkSide
 
 Input = 'EFF/Energy_1.txt'
 Input = 'EFF/PBH_HIon_K1.txt'
@@ -179,3 +179,274 @@ Input = 'EFF/Muon_Heat_DEC.txt';
 Tab_Name = 'EFF_Muon_Heat_Decay';
 Printer(Input, Tab_Name)
 
+% -- Tau Ann ----
+
+% HIon
+Input = 'EFF/Tau_HIon_HMG.txt';
+Tab_Name = 'EFF_Tau_HIon_Ann_HMG';
+Printer(Input, Tab_Name)
+
+% LyA
+Input = 'EFF/Tau_LyA_HMG.txt';
+Tab_Name = 'EFF_Tau_LyA_Ann_HMG';
+Printer(Input, Tab_Name)
+
+% Heat
+Input = 'EFF/Tau_Heat_HMG.txt';
+Tab_Name = 'EFF_Tau_Heat_Ann_HMG';
+Printer(Input, Tab_Name)
+
+% -- Tau Decay ----
+
+% HIon
+Input = 'EFF/Tau_HIon_DEC.txt';
+Tab_Name = 'EFF_Tau_HIon_Decay';
+Printer(Input, Tab_Name)
+
+% LyA
+Input = 'EFF/Tau_LyA_DEC.txt';
+Tab_Name = 'EFF_Tau_LyA_Decay';
+Printer(Input, Tab_Name)
+
+% Heat
+Input = 'EFF/Tau_Heat_DEC.txt';
+Tab_Name = 'EFF_Tau_Heat_Decay';
+Printer(Input, Tab_Name)
+
+% -- Q Ann ----
+
+% HIon
+Input = 'EFF/Q_HIon_HMG.txt';
+Tab_Name = 'EFF_Q_HIon_Ann_HMG';
+Printer(Input, Tab_Name)
+
+% LyA
+Input = 'EFF/Q_LyA_HMG.txt';
+Tab_Name = 'EFF_Q_LyA_Ann_HMG';
+Printer(Input, Tab_Name)
+
+% Heat
+Input = 'EFF/Q_Heat_HMG.txt';
+Tab_Name = 'EFF_Q_Heat_Ann_HMG';
+Printer(Input, Tab_Name)
+
+% -- Q Decay ----
+
+% HIon
+Input = 'EFF/Q_HIon_DEC.txt';
+Tab_Name = 'EFF_Q_HIon_Decay';
+Printer(Input, Tab_Name)
+
+% LyA
+Input = 'EFF/Q_LyA_DEC.txt';
+Tab_Name = 'EFF_Q_LyA_Decay';
+Printer(Input, Tab_Name)
+
+% Heat
+Input = 'EFF/Q_Heat_DEC.txt';
+Tab_Name = 'EFF_Q_Heat_Decay';
+Printer(Input, Tab_Name)
+
+% -- Charm Ann ----
+
+% HIon
+Input = 'EFF/Charm_HIon_HMG.txt';
+Tab_Name = 'EFF_Charm_HIon_Ann_HMG';
+Printer(Input, Tab_Name)
+
+% LyA
+Input = 'EFF/Charm_LyA_HMG.txt';
+Tab_Name = 'EFF_Charm_LyA_Ann_HMG';
+Printer(Input, Tab_Name)
+
+% Heat
+Input = 'EFF/Charm_Heat_HMG.txt';
+Tab_Name = 'EFF_Charm_Heat_Ann_HMG';
+Printer(Input, Tab_Name)
+
+% -- Charm Decay ----
+
+% HIon
+Input = 'EFF/Charm_HIon_DEC.txt';
+Tab_Name = 'EFF_Charm_HIon_Decay';
+Printer(Input, Tab_Name)
+
+% LyA
+Input = 'EFF/Charm_LyA_DEC.txt';
+Tab_Name = 'EFF_Charm_LyA_Decay';
+Printer(Input, Tab_Name)
+
+% Heat
+Input = 'EFF/Charm_Heat_DEC.txt';
+Tab_Name = 'EFF_Charm_Heat_Decay';
+Printer(Input, Tab_Name)
+
+% -- Bottom Ann ----
+
+% HIon
+Input = 'EFF/Bottom_HIon_HMG.txt';
+Tab_Name = 'EFF_Bottom_HIon_Ann_HMG';
+Printer(Input, Tab_Name)
+
+% LyA
+Input = 'EFF/Bottom_LyA_HMG.txt';
+Tab_Name = 'EFF_Bottom_LyA_Ann_HMG';
+Printer(Input, Tab_Name)
+
+% Heat
+Input = 'EFF/Bottom_Heat_HMG.txt';
+Tab_Name = 'EFF_Bottom_Heat_Ann_HMG';
+Printer(Input, Tab_Name)
+
+% -- Bottom Decay ----
+
+% HIon
+Input = 'EFF/Bottom_HIon_DEC.txt';
+Tab_Name = 'EFF_Bottom_HIon_Decay';
+Printer(Input, Tab_Name)
+
+% LyA
+Input = 'EFF/Bottom_LyA_DEC.txt';
+Tab_Name = 'EFF_Bottom_LyA_Decay';
+Printer(Input, Tab_Name)
+
+% Heat
+Input = 'EFF/Bottom_Heat_DEC.txt';
+Tab_Name = 'EFF_Bottom_Heat_Decay';
+Printer(Input, Tab_Name)
+
+% -- Top Ann ----
+
+% HIon
+Input = 'EFF/Top_HIon_HMG.txt';
+Tab_Name = 'EFF_Top_HIon_Ann_HMG';
+Printer(Input, Tab_Name)
+
+% LyA
+Input = 'EFF/Top_LyA_HMG.txt';
+Tab_Name = 'EFF_Top_LyA_Ann_HMG';
+Printer(Input, Tab_Name)
+
+% Heat
+Input = 'EFF/Top_Heat_HMG.txt';
+Tab_Name = 'EFF_Top_Heat_Ann_HMG';
+Printer(Input, Tab_Name)
+
+% -- Top Decay ----
+
+% HIon
+Input = 'EFF/Top_HIon_DEC.txt';
+Tab_Name = 'EFF_Top_HIon_Decay';
+Printer(Input, Tab_Name)
+
+% LyA
+Input = 'EFF/Top_LyA_DEC.txt';
+Tab_Name = 'EFF_Top_LyA_Decay';
+Printer(Input, Tab_Name)
+
+% Heat
+Input = 'EFF/Top_Heat_DEC.txt';
+Tab_Name = 'EFF_Top_Heat_Decay';
+Printer(Input, Tab_Name)
+
+% -- W Ann ----
+
+% HIon
+Input = 'EFF/W_HIon_HMG.txt';
+Tab_Name = 'EFF_W_HIon_Ann_HMG';
+Printer(Input, Tab_Name)
+
+% LyA
+Input = 'EFF/W_LyA_HMG.txt';
+Tab_Name = 'EFF_W_LyA_Ann_HMG';
+Printer(Input, Tab_Name)
+
+% Heat
+Input = 'EFF/W_Heat_HMG.txt';
+Tab_Name = 'EFF_W_Heat_Ann_HMG';
+Printer(Input, Tab_Name)
+
+% -- W Decay ----
+
+% HIon
+Input = 'EFF/W_HIon_DEC.txt';
+Tab_Name = 'EFF_W_HIon_Decay';
+Printer(Input, Tab_Name)
+
+% LyA
+Input = 'EFF/W_LyA_DEC.txt';
+Tab_Name = 'EFF_W_LyA_Decay';
+Printer(Input, Tab_Name)
+
+% Heat
+Input = 'EFF/W_Heat_DEC.txt';
+Tab_Name = 'EFF_W_Heat_Decay';
+Printer(Input, Tab_Name)
+
+% -- Z Ann ----
+
+% HIon
+Input = 'EFF/Z_HIon_HMG.txt';
+Tab_Name = 'EFF_Z_HIon_Ann_HMG';
+Printer(Input, Tab_Name)
+
+% LyA
+Input = 'EFF/Z_LyA_HMG.txt';
+Tab_Name = 'EFF_Z_LyA_Ann_HMG';
+Printer(Input, Tab_Name)
+
+% Heat
+Input = 'EFF/Z_Heat_HMG.txt';
+Tab_Name = 'EFF_Z_Heat_Ann_HMG';
+Printer(Input, Tab_Name)
+
+% -- Z Decay ----
+
+% HIon
+Input = 'EFF/Z_HIon_DEC.txt';
+Tab_Name = 'EFF_Z_HIon_Decay';
+Printer(Input, Tab_Name)
+
+% LyA
+Input = 'EFF/Z_LyA_DEC.txt';
+Tab_Name = 'EFF_Z_LyA_Decay';
+Printer(Input, Tab_Name)
+
+% Heat
+Input = 'EFF/Z_Heat_DEC.txt';
+Tab_Name = 'EFF_Z_Heat_Decay';
+Printer(Input, Tab_Name)
+
+% -- Gluon Ann ----
+
+% HIon
+Input = 'EFF/Gluon_HIon_HMG.txt';
+Tab_Name = 'EFF_Gluon_HIon_Ann_HMG';
+Printer(Input, Tab_Name)
+
+% LyA
+Input = 'EFF/Gluon_LyA_HMG.txt';
+Tab_Name = 'EFF_Gluon_LyA_Ann_HMG';
+Printer(Input, Tab_Name)
+
+% Heat
+Input = 'EFF/Gluon_Heat_HMG.txt';
+Tab_Name = 'EFF_Gluon_Heat_Ann_HMG';
+Printer(Input, Tab_Name)
+
+% -- Gluon Decay ----
+
+% HIon
+Input = 'EFF/Gluon_HIon_DEC.txt';
+Tab_Name = 'EFF_Gluon_HIon_Decay';
+Printer(Input, Tab_Name)
+
+% LyA
+Input = 'EFF/Gluon_LyA_DEC.txt';
+Tab_Name = 'EFF_Gluon_LyA_Decay';
+Printer(Input, Tab_Name)
+
+% Heat
+Input = 'EFF/Gluon_Heat_DEC.txt';
+Tab_Name = 'EFF_Gluon_Heat_Decay';
+Printer(Input, Tab_Name)

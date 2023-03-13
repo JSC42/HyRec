@@ -980,6 +980,7 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
     xe_output[iz] = fmin(xe_output[iz], Xe_Max);
     Tm_output[iz] = cosmo->T0 * (1. + z);
     Check_Error(xe_output[iz], Tm_output[iz]);
+    printf("Stage_1 %f  %f  %f\n", z, xe_output[iz], Tm_output[iz]);
   }
 
   /******** He II -> I recombination.
@@ -1054,6 +1055,7 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
 
     xe_output[iz] = fmin(xe_output[iz], Xe_Max);
     Check_Error(xe_output[iz], Tm_output[iz]);
+    printf("Stage_2 %f  %f  %f\n", z, xe_output[iz], Tm_output[iz]);
     if (*error == 1)
       return data->error_message;
   }
@@ -1102,6 +1104,7 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
     *exclya = dEdVdt_deposited(z, cosmo->inj_params, 3) / nH / E21;
     xe_output[iz] = fmin(xe_output[iz], Xe_Max);
     Check_Error(xe_output[iz], Tm_output[iz]);
+    printf("Stage_3 %f  %f  %f\n", z, xe_output[iz], Tm_output[iz]);
     
     if (*error == 1)
       return data->error_message;
@@ -1166,6 +1169,7 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
 
     xe_output[iz] = fmin(xe_output[iz], Xe_Max);
     Check_Error(xe_output[iz], Tm_output[iz]);
+    printf("Stage_4 %f  %f  %f\n", z, xe_output[iz], Tm_output[iz]);
     
     if (*error == 1)
       return data->error_message;
@@ -1218,6 +1222,7 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
 
     xe_output[iz] = fmin(xe_output[iz], Xe_Max);
     Check_Error(xe_output[iz], Tm_output[iz]);
+    printf("Stage_5 %f  %f  %f\n", z, xe_output[iz], Tm_output[iz]);
     
     if (*error == 1)
       return data->error_message;

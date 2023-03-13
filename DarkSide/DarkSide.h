@@ -122,14 +122,14 @@ double Interp_2D(double m, double z, double *m_axis, double *z_axis, double *Tab
     // Overflow detected
     if (Overflow_Handle == 0)
     {
-    printf("Error: m or z not in range, exitting, debugging info:.\n");
-    printf("m1 = %E, m = %E, m2 = %E\n", m_axis[mid1], m, m_axis[mid1 + 1]);
-    printf("z1 = %E, z = %E, z2 = %E\n", z_axis[zid1], z, z_axis[zid1 + 1]);
-    printf("min(m) = %E, m = %E, max(m) = %E\n", m_axis[0], m, m_axis[nm - 1]);
-    printf("min(z) = %E, z = %E, max(z) = %E\n", z_axis[0], z, z_axis[nz - 1]);
-    exit(1);
+      printf("Error: m or z not in range, exitting, debugging info:.\n");
+      printf("m1 = %E, m = %E, m2 = %E\n", m_axis[mid1], m, m_axis[mid1 + 1]);
+      printf("z1 = %E, z = %E, z2 = %E\n", z_axis[zid1], z, z_axis[zid1 + 1]);
+      printf("min(m) = %E, m = %E, max(m) = %E\n", m_axis[0], m, m_axis[nm - 1]);
+      printf("min(z) = %E, z = %E, max(z) = %E\n", z_axis[0], z, z_axis[nz - 1]);
+      exit(1);
     }
-    else if ((zid1 == -1)&&(Overflow_Handle == 1))
+    else if ((zid1 == -1) && (Overflow_Handle == 1))
     {
       // Our z axis is bounded
       return 0.0;
@@ -138,11 +138,11 @@ double Interp_2D(double m, double z, double *m_axis, double *z_axis, double *Tab
 
   mid2 = mid1 + 1;
   zid2 = zid1 + 1;
-  
+
   lm = log10(m);
   lm1 = log10(m_axis[mid1]);
   lm2 = log10(m_axis[mid2]);
-  
+
   lz = log10(z);
   lz1 = log10(z_axis[zid1]);
   lz2 = log10(z_axis[zid2]);
@@ -155,13 +155,13 @@ double Interp_2D(double m, double z, double *m_axis, double *z_axis, double *Tab
   // fix m1
   f1 = f11;
   f2 = f21;
-  F1 = (f2-f1)/(lz2 - lz1)*(lz - lz1)+f1;
+  F1 = (f2 - f1) / (lz2 - lz1) * (lz - lz1) + f1;
   // fix m2
   f1 = f12;
   f2 = f22;
-  F2 = (f2-f1)/(lz2 - lz1)*(lz - lz1)+f1;
-  
-  f = (F2 - F1)/(lm2 - lm1)*(lm - lm1) + F1;
+  F2 = (f2 - f1) / (lz2 - lz1) * (lz - lz1) + f1;
+
+  f = (F2 - F1) / (lm2 - lm1) * (lm - lm1) + F1;
 
   return f;
 }
@@ -181,7 +181,14 @@ double Interp_EFF_DM_Annihilation(double Mdm, double z, int Dep_Channel, int Rea
           2 - Electron
           3 - Higgs
           4 - Muon
-          More on the way ...
+          5 - Tau
+          6 - Q
+          7 - CHarm
+          8 - Bottom
+          9 - Top
+          10 - W
+          11 - Z
+          12 - Gluon
   */
 
   double Mdm_eV, x_in, EFF;
@@ -199,15 +206,15 @@ double Interp_EFF_DM_Annihilation(double Mdm, double z, int Dep_Channel, int Rea
     x_in = Mdm_eV;
     if (Dep_Channel == 1)
     {
-      EFF = Interp_2D(x_in, 1 + z, Kinetic_Energy_Axis, Redshift_Axis, EFF_Phot_HIon_Ann_HMG, Kinetic_Energy_Axis_Size, Redshift_Size,1);
+      EFF = Interp_2D(x_in, 1 + z, Kinetic_Energy_Axis, Redshift_Axis, EFF_Phot_HIon_Ann_HMG, Kinetic_Energy_Axis_Size, Redshift_Size, 1);
     }
     else if (Dep_Channel == 3)
     {
-      EFF = Interp_2D(x_in, 1 + z, Kinetic_Energy_Axis, Redshift_Axis, EFF_Phot_LyA_Ann_HMG, Kinetic_Energy_Axis_Size, Redshift_Size,1);
+      EFF = Interp_2D(x_in, 1 + z, Kinetic_Energy_Axis, Redshift_Axis, EFF_Phot_LyA_Ann_HMG, Kinetic_Energy_Axis_Size, Redshift_Size, 1);
     }
     else if (Dep_Channel == 4)
     {
-      EFF = Interp_2D(x_in, 1 + z, Kinetic_Energy_Axis, Redshift_Axis, EFF_Phot_Heat_Ann_HMG, Kinetic_Energy_Axis_Size, Redshift_Size,1);
+      EFF = Interp_2D(x_in, 1 + z, Kinetic_Energy_Axis, Redshift_Axis, EFF_Phot_Heat_Ann_HMG, Kinetic_Energy_Axis_Size, Redshift_Size, 1);
     }
   }
   // ---- Elec ----
@@ -221,15 +228,15 @@ double Interp_EFF_DM_Annihilation(double Mdm, double z, int Dep_Channel, int Rea
     }
     if (Dep_Channel == 1)
     {
-      EFF = Interp_2D(x_in, 1 + z, Kinetic_Energy_Axis, Redshift_Axis, EFF_Elec_HIon_Ann_HMG, Kinetic_Energy_Axis_Size, Redshift_Size,1);
+      EFF = Interp_2D(x_in, 1 + z, Kinetic_Energy_Axis, Redshift_Axis, EFF_Elec_HIon_Ann_HMG, Kinetic_Energy_Axis_Size, Redshift_Size, 1);
     }
     else if (Dep_Channel == 3)
     {
-      EFF = Interp_2D(x_in, 1 + z, Kinetic_Energy_Axis, Redshift_Axis, EFF_Elec_LyA_Ann_HMG, Kinetic_Energy_Axis_Size, Redshift_Size,1);
+      EFF = Interp_2D(x_in, 1 + z, Kinetic_Energy_Axis, Redshift_Axis, EFF_Elec_LyA_Ann_HMG, Kinetic_Energy_Axis_Size, Redshift_Size, 1);
     }
     else if (Dep_Channel == 4)
     {
-      EFF = Interp_2D(x_in, 1 + z, Kinetic_Energy_Axis, Redshift_Axis, EFF_Elec_Heat_Ann_HMG, Kinetic_Energy_Axis_Size, Redshift_Size,1);
+      EFF = Interp_2D(x_in, 1 + z, Kinetic_Energy_Axis, Redshift_Axis, EFF_Elec_Heat_Ann_HMG, Kinetic_Energy_Axis_Size, Redshift_Size, 1);
     }
   }
   // ---- Higgs ----
@@ -238,15 +245,15 @@ double Interp_EFF_DM_Annihilation(double Mdm, double z, int Dep_Channel, int Rea
     x_in = Mdm_eV;
     if (Dep_Channel == 1)
     {
-      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_Higgs_HIon_Ann_HMG, Mdm_Axis_Size, Redshift_Size,1);
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_Higgs_HIon_Ann_HMG, Mdm_Axis_Size, Redshift_Size, 1);
     }
     else if (Dep_Channel == 3)
     {
-      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_Higgs_LyA_Ann_HMG, Mdm_Axis_Size, Redshift_Size,1);
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_Higgs_LyA_Ann_HMG, Mdm_Axis_Size, Redshift_Size, 1);
     }
     else if (Dep_Channel == 4)
     {
-      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_Higgs_Heat_Ann_HMG, Mdm_Axis_Size, Redshift_Size,1);
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_Higgs_Heat_Ann_HMG, Mdm_Axis_Size, Redshift_Size, 1);
     }
   }
   // ---- Muon ----
@@ -255,16 +262,157 @@ double Interp_EFF_DM_Annihilation(double Mdm, double z, int Dep_Channel, int Rea
     x_in = Mdm_eV;
     if (Dep_Channel == 1)
     {
-      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_Muon_HIon_Ann_HMG, Mdm_Axis_Size, Redshift_Size,1);
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_Muon_HIon_Ann_HMG, Mdm_Axis_Size, Redshift_Size, 1);
     }
     else if (Dep_Channel == 3)
     {
-      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_Muon_LyA_Ann_HMG, Mdm_Axis_Size, Redshift_Size,1);
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_Muon_LyA_Ann_HMG, Mdm_Axis_Size, Redshift_Size, 1);
     }
     else if (Dep_Channel == 4)
     {
-      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_Muon_Heat_Ann_HMG, Mdm_Axis_Size, Redshift_Size,1);
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_Muon_Heat_Ann_HMG, Mdm_Axis_Size, Redshift_Size, 1);
     }
+  }
+  // ---- Tau ----
+  else if (Reaction_Channel == 5)
+  {
+    x_in = Mdm_eV;
+    if (Dep_Channel == 1)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_Tau_HIon_Ann_HMG, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+    else if (Dep_Channel == 3)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_Tau_LyA_Ann_HMG, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+    else if (Dep_Channel == 4)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_Tau_Heat_Ann_HMG, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+  }
+  // ---- Q ----
+  else if (Reaction_Channel == 6)
+  {
+    x_in = Mdm_eV;
+    if (Dep_Channel == 1)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_Q_HIon_Ann_HMG, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+    else if (Dep_Channel == 3)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_Q_LyA_Ann_HMG, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+    else if (Dep_Channel == 4)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_Q_Heat_Ann_HMG, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+  }
+  // ---- Charm ----
+  else if (Reaction_Channel == 7)
+  {
+    x_in = Mdm_eV;
+    if (Dep_Channel == 1)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_Charm_HIon_Ann_HMG, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+    else if (Dep_Channel == 3)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_Charm_LyA_Ann_HMG, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+    else if (Dep_Channel == 4)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_Charm_Heat_Ann_HMG, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+  }
+  // ---- Bottom ----
+  else if (Reaction_Channel == 8)
+  {
+    x_in = Mdm_eV;
+    if (Dep_Channel == 1)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_Bottom_HIon_Ann_HMG, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+    else if (Dep_Channel == 3)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_Bottom_LyA_Ann_HMG, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+    else if (Dep_Channel == 4)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_Bottom_Heat_Ann_HMG, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+  }
+  // ---- Top ----
+  else if (Reaction_Channel == 9)
+  {
+    x_in = Mdm_eV;
+    if (Dep_Channel == 1)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_Top_HIon_Ann_HMG, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+    else if (Dep_Channel == 3)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_Top_LyA_Ann_HMG, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+    else if (Dep_Channel == 4)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_Top_Heat_Ann_HMG, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+  }
+  // ---- W ----
+  else if (Reaction_Channel == 10)
+  {
+    x_in = Mdm_eV;
+    if (Dep_Channel == 1)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_W_HIon_Ann_HMG, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+    else if (Dep_Channel == 3)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_W_LyA_Ann_HMG, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+    else if (Dep_Channel == 4)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_W_Heat_Ann_HMG, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+  }
+  // ---- Z ----
+  else if (Reaction_Channel == 11)
+  {
+    x_in = Mdm_eV;
+    if (Dep_Channel == 1)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_Z_HIon_Ann_HMG, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+    else if (Dep_Channel == 3)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_Z_LyA_Ann_HMG, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+    else if (Dep_Channel == 4)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_Z_Heat_Ann_HMG, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+  }
+  // ---- Gluon ----
+  else if (Reaction_Channel == 12)
+  {
+    x_in = Mdm_eV;
+    if (Dep_Channel == 1)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_Gluon_HIon_Ann_HMG, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+    else if (Dep_Channel == 3)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_Gluon_LyA_Ann_HMG, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+    else if (Dep_Channel == 4)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Annihilation, Redshift_Axis, EFF_Gluon_Heat_Ann_HMG, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+  }
+  else
+  {
+    printf("Unknown DM decay/annihilation channel.\n");
+    exit(1);
   }
   return EFF;
 }
@@ -284,7 +432,14 @@ double Interp_EFF_DM_Decay(double Mdm, double z, int Dep_Channel, int Reaction_C
           2 - Electron
           3 - Higgs
           4 - Muon
-          More on the way ...
+          5 - Tau
+          6 - Q
+          7 - CHarm
+          8 - Bottom
+          9 - Top
+          10 - W
+          11 - Z
+          12 - Gluon
   */
 
   double Mdm_eV, x_in, EFF;
@@ -302,15 +457,15 @@ double Interp_EFF_DM_Decay(double Mdm, double z, int Dep_Channel, int Reaction_C
     x_in = Mdm_eV / 2.0;
     if (Dep_Channel == 1)
     {
-      EFF = Interp_2D(x_in, 1 + z, Kinetic_Energy_Axis, Redshift_Axis, EFF_Phot_HIon_Decay, Kinetic_Energy_Axis_Size, Redshift_Size,1);
+      EFF = Interp_2D(x_in, 1 + z, Kinetic_Energy_Axis, Redshift_Axis, EFF_Phot_HIon_Decay, Kinetic_Energy_Axis_Size, Redshift_Size, 1);
     }
     else if (Dep_Channel == 3)
     {
-      EFF = Interp_2D(x_in, 1 + z, Kinetic_Energy_Axis, Redshift_Axis, EFF_Phot_LyA_Decay, Kinetic_Energy_Axis_Size, Redshift_Size,1);
+      EFF = Interp_2D(x_in, 1 + z, Kinetic_Energy_Axis, Redshift_Axis, EFF_Phot_LyA_Decay, Kinetic_Energy_Axis_Size, Redshift_Size, 1);
     }
     else if (Dep_Channel == 4)
     {
-      EFF = Interp_2D(x_in, 1 + z, Kinetic_Energy_Axis, Redshift_Axis, EFF_Phot_Heat_Decay, Kinetic_Energy_Axis_Size, Redshift_Size,1);
+      EFF = Interp_2D(x_in, 1 + z, Kinetic_Energy_Axis, Redshift_Axis, EFF_Phot_Heat_Decay, Kinetic_Energy_Axis_Size, Redshift_Size, 1);
     }
   }
   // ---- Electron ----
@@ -369,6 +524,147 @@ double Interp_EFF_DM_Decay(double Mdm, double z, int Dep_Channel, int Reaction_C
     {
       EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Decay, Redshift_Axis, EFF_Muon_Heat_Decay, Mdm_Axis_Size, Redshift_Size, 1);
     }
+  }
+  // ---- Tau ----
+  else if (Reaction_Channel == 5)
+  {
+    x_in = Mdm_eV;
+    if (Dep_Channel == 1)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Decay, Redshift_Axis, EFF_Tau_HIon_Decay, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+    else if (Dep_Channel == 3)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Decay, Redshift_Axis, EFF_Tau_LyA_Decay, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+    else if (Dep_Channel == 4)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Decay, Redshift_Axis, EFF_Tau_Heat_Decay, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+  }
+  // ---- Q ----
+  else if (Reaction_Channel == 6)
+  {
+    x_in = Mdm_eV;
+    if (Dep_Channel == 1)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Decay, Redshift_Axis, EFF_Q_HIon_Decay, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+    else if (Dep_Channel == 3)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Decay, Redshift_Axis, EFF_Q_LyA_Decay, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+    else if (Dep_Channel == 4)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Decay, Redshift_Axis, EFF_Q_Heat_Decay, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+  }
+  // ---- Charm ----
+  else if (Reaction_Channel == 7)
+  {
+    x_in = Mdm_eV;
+    if (Dep_Channel == 1)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Decay, Redshift_Axis, EFF_Charm_HIon_Decay, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+    else if (Dep_Channel == 3)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Decay, Redshift_Axis, EFF_Charm_LyA_Decay, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+    else if (Dep_Channel == 4)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Decay, Redshift_Axis, EFF_Charm_Heat_Decay, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+  }
+  // ---- Bottom ----
+  else if (Reaction_Channel == 8)
+  {
+    x_in = Mdm_eV;
+    if (Dep_Channel == 1)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Decay, Redshift_Axis, EFF_Bottom_HIon_Decay, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+    else if (Dep_Channel == 3)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Decay, Redshift_Axis, EFF_Bottom_LyA_Decay, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+    else if (Dep_Channel == 4)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Decay, Redshift_Axis, EFF_Bottom_Heat_Decay, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+  }
+  // ---- Top ----
+  else if (Reaction_Channel == 9)
+  {
+    x_in = Mdm_eV;
+    if (Dep_Channel == 1)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Decay, Redshift_Axis, EFF_Top_HIon_Decay, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+    else if (Dep_Channel == 3)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Decay, Redshift_Axis, EFF_Top_LyA_Decay, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+    else if (Dep_Channel == 4)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Decay, Redshift_Axis, EFF_Top_Heat_Decay, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+  }
+  // ---- W ----
+  else if (Reaction_Channel == 10)
+  {
+    x_in = Mdm_eV;
+    if (Dep_Channel == 1)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Decay, Redshift_Axis, EFF_W_HIon_Decay, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+    else if (Dep_Channel == 3)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Decay, Redshift_Axis, EFF_W_LyA_Decay, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+    else if (Dep_Channel == 4)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Decay, Redshift_Axis, EFF_W_Heat_Decay, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+  }
+  // ---- Z ----
+  else if (Reaction_Channel == 11)
+  {
+    x_in = Mdm_eV;
+    if (Dep_Channel == 1)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Decay, Redshift_Axis, EFF_Z_HIon_Decay, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+    else if (Dep_Channel == 3)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Decay, Redshift_Axis, EFF_Z_LyA_Decay, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+    else if (Dep_Channel == 4)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Decay, Redshift_Axis, EFF_Z_Heat_Decay, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+  }
+  // ---- Gluon ----
+  else if (Reaction_Channel == 12)
+  {
+    x_in = Mdm_eV;
+    if (Dep_Channel == 1)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Decay, Redshift_Axis, EFF_Gluon_HIon_Decay, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+    else if (Dep_Channel == 3)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Decay, Redshift_Axis, EFF_Gluon_LyA_Decay, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+    else if (Dep_Channel == 4)
+    {
+      EFF = Interp_2D(x_in, 1 + z, Mdm_Axis_Decay, Redshift_Axis, EFF_Gluon_Heat_Decay, Mdm_Axis_Size, Redshift_Size, 1);
+    }
+  }
+  else
+  {
+    printf("Unknown DM decay/annihilation channel.\n");
+    exit(1);
   }
 
   return EFF;

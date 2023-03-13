@@ -17,7 +17,6 @@
 #include "DarkSide/DarkSide.h"
 
 // ALL dEdVdt are in ev/cm^3/s unit
-
 double dEdVdt_decay_inj(double z, INJ_PARAMS *params)
 {
   double Gamma, Omch2, r;
@@ -34,6 +33,15 @@ double dEdVdt_decay_inj(double z, INJ_PARAMS *params)
   return r;
 }
 
+double dEdVdt_ann_inj(double z, INJ_PARAMS *params)
+{
+  double Omch2, r;
+  Omch2 = params->odmh2;
+  // 1E9 convert GeV to eV
+  r = params->pann * square(Rhocr_C2_no_h2 * Omch2 * cube(1. + z)) * 1.0E-9;
+  return r;
+}
+
 double dEdVdt_decay_dep(double z, INJ_PARAMS *params, int dep_channel)
 {
   double inj, r ,EFF, Mdm;
@@ -42,6 +50,18 @@ double dEdVdt_decay_dep(double z, INJ_PARAMS *params, int dep_channel)
   inj = dEdVdt_decay_inj(z, params);
   EFF = Interp_EFF_DM_Decay(params->Mdm, z, dep_channel, DM_Channel);
   // printf("z = %f, inj = %E, EFF = %f\n", z, inj, EFF);
+  r = EFF*inj;
+  return r;
+}
+
+double dEdVdt_ann_dep(double z, INJ_PARAMS *params, int dep_channel)
+{
+  double inj, r ,EFF, Mdm;
+  int DM_Channel;
+  DM_Channel = (int)round(params->DM_Channel);
+  inj = dEdVdt_ann_inj(z, params);
+  EFF = Interp_EFF_DM_Annihilation(params->Mdm, z, dep_channel, DM_Channel);
+  // printf("EFF = %E\n",EFF);
   r = EFF*inj;
   return r;
 }
@@ -55,7 +75,7 @@ double dEdVdt_deposited(double z, INJ_PARAMS *params, int dep_channel)
                  4: Heating
   */
 
-  double r;
+  double r_dec, r_ann, r;
 
   // Check params
   if ((dep_channel == 2) || (dep_channel == 5))
@@ -64,7 +84,9 @@ double dEdVdt_deposited(double z, INJ_PARAMS *params, int dep_channel)
     exit(1);
   }
 
-  r = dEdVdt_decay_dep(z, params, dep_channel);
+  r_dec = dEdVdt_decay_dep(z, params, dep_channel);
+  r_ann = dEdVdt_ann_dep(z, params, dep_channel);
+  r = r_dec + r_ann;
 
   return r;
 }
