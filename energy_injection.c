@@ -69,3 +69,17 @@ double dEdVdt_deposited(double z, INJ_PARAMS *params, int dep_channel)
   return r;
 }
 
+void Check_Error(double xe, double T)
+{
+  // Check for inifnity and NaN in Xe and T
+  if (isfinite(xe) == 0)
+  {
+    printf("Error from Check_Error@HyRec: xe is NaN or infinite");
+    exit(1);
+  }
+  if (isfinite(T) == 0)
+  {
+    printf("Error from Check_Error@HyRec: T is NaN or infinite");
+    exit(1);
+  }
+}

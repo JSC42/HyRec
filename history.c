@@ -977,10 +977,9 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
   {
     z = (1. + zstart) * exp(-cosmo->dlna * iz) - 1.;
     xe_output[iz] = rec_xesaha_HeII_III(cosmo, z, &Delta_xe);
-    // Ensure that xe does not exceed the full-ionisation ceiling
     xe_output[iz] = fmin(xe_output[iz], Xe_Max);
     Tm_output[iz] = cosmo->T0 * (1. + z);
-    // printf("Stage_1 %f  %f  %f\n", z, xe_output[iz], Tm_output[iz]);//jsc
+    Check_Error(xe_output[iz], Tm_output[iz]);
   }
 
   /******** He II -> I recombination.
@@ -1054,7 +1053,7 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
     }
 
     xe_output[iz] = fmin(xe_output[iz], Xe_Max);
-    // printf("Stage_2 %f  %f  %f\n", z, xe_output[iz], Tm_output[iz]);
+    Check_Error(xe_output[iz], Tm_output[iz]);
     if (*error == 1)
       return data->error_message;
   }
@@ -1102,8 +1101,8 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
     *ion = dEdVdt_deposited(z, cosmo->inj_params, 1) / nH / EI;
     *exclya = dEdVdt_deposited(z, cosmo->inj_params, 3) / nH / E21;
     xe_output[iz] = fmin(xe_output[iz], Xe_Max);
-    // printf("Stage_3 %f  %f  %f\n", z, xe_output[iz], Tm_output[iz]);
-
+    Check_Error(xe_output[iz], Tm_output[iz]);
+    
     if (*error == 1)
       return data->error_message;
   }
@@ -1166,7 +1165,8 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
     }
 
     xe_output[iz] = fmin(xe_output[iz], Xe_Max);
-    // printf("Stage_4 %f  %f  %f\n", z, xe_output[iz], Tm_output[iz]);
+    Check_Error(xe_output[iz], Tm_output[iz]);
+    
     if (*error == 1)
       return data->error_message;
   }
@@ -1217,7 +1217,8 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
     *exclya = dEdVdt_deposited(z, cosmo->inj_params, 3) / nH / E21;
 
     xe_output[iz] = fmin(xe_output[iz], Xe_Max);
-    // printf("Stage_5 %f  %f  %f\n", z, xe_output[iz], Tm_output[iz]);
+    Check_Error(xe_output[iz], Tm_output[iz]);
+    
     if (*error == 1)
       return data->error_message;
   }

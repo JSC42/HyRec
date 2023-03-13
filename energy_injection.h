@@ -29,5 +29,6 @@ typedef struct
 } INJ_PARAMS;
 
 double dEdVdt_deposited(double z, INJ_PARAMS *params, int dep_channel);
+void Check_Error(double xe, double T);
 
 #endif
