@@ -1,32 +1,59 @@
-6.735837e-01
-2.7255
-0.0494142797907188
-0.31242079216478097
+pann:
 0.
--1 0
-1.
-0.06
-0.
-0.
-0.245
-3.046
-
-1.
-1.
-1.
-0.
-0.0
-
+Gamma:
+1E-23
+Mdm:
 1
+DM_Channel:
+2.
+Mpbh:
+1
+fpbh:
 0.
+hubble:
+0.6735837
+Tcmb:
+2.7255
+Omega_B:
+0.0494142797907188
+Omega_M:
+0.31242079216478097
+Omega_K:
+0.
+w0,wa:
+-1 0
+Nmnu
+1.
+mnu_1
+0.06
+mnu_2
+0.
+mnu_3
+0.
+YHe:
+0.245
+Neff:
+3.046
+fsR:
+1.
+meR:
+1.
+
 
 
 =====================================================================
-Input parameter file for Hyrec (default values given as examples).
-The parameters have to be entered in the order shown, and 
-correspond to the following inputs.
+Input parameter file for Hyrec
+do NOT change param strings above (ends with :)
+default values are given as examples below.
 All parameters must be present 
 =====================================================================
+0.       = pann = <sigma v>/Mdm      dark matter annihilation parameter, in cm^3/s/GeV
+0.       = decay                     DM decay, in 1/s
+1.       = Mdm                       dark matter mass in GeV
+1.       = DM_Channel                Particle that DM decay/annihilate into, for full list see energy_injection.h
+1.       = Mpbh                      primordial black hole mass in solar masses
+0.       = fpbh                      fraction of dark matter made of PBHs 
+
 
 0.6766   = h                         H0/(100 km/s/Mpc)
 2.7255   = T0                        CMB temperature today, in K
@@ -45,10 +72,4 @@ All parameters must be present
                                      If it's not 1, a smaller timestep might be needed. Decrease timestep in history.h if needed.
 1.       = me(rec)/me(today)         ratio of electron mass at recombination to today's value
 
-1.       = Mdm                       dark matter mass in GeV
-0.       = pann = <sigma v>/Mdm    dark matter annihilation parameter, in cm^3/s/GeV
-0.       = decay                     DM decay, in 1/s
-
-1.       = Mpbh                      primordial black hole mass in solar masses
-0.       = fpbh                      fraction of dark matter made of PBHs 
 

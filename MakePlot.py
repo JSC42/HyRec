@@ -1,11 +1,11 @@
 
-PlotXe = 1
+PlotXe = 2
 LineWidth = 2
 FontSize = 18
 
 File_1 = 'tmp1.dat'
 File_2 = 'tmp2.dat'
-X_limit = [1, 3000]
+X_limit = [10, 3000]
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -33,9 +33,11 @@ plt.xlim(X_limit)
 
 if PlotXe == 1:
 	plt.ylabel('$x_{\\rm{e}}$',fontsize=FontSize,fontname='Times New Roman')
-
+	plt.xscale('log')
+	plt.yscale('log')
 else:
 	plt.ylabel('$T$',fontsize=FontSize,fontname='Times New Roman')
+	plt.xscale('log')
 	plt.yscale('log')
 
 plt.savefig('/Users/cangtao/Desktop/tmp.png',bbox_inches='tight')

@@ -40,7 +40,7 @@
 
 #include "history.h"
 #include "helium.h"
-
+#define Xe_Max 1.1634102476
 /*************************************************************************************
 Hubble expansion rate in sec^-1.
 *************************************************************************************/
@@ -135,6 +135,7 @@ void rec_build_history_camb_(const double *OmegaC, const double *OmegaB, const d
   rec_data.cosmo->inj_params->Mdm = 0.;
   rec_data.cosmo->inj_params->pann = 0.;
   rec_data.cosmo->inj_params->decay = 0.;
+  rec_data.cosmo->inj_params->DM_Channel = 0.;
 
   /* Primodial black hole parameters */
   rec_data.cosmo->inj_params->Mpbh = 1.;
@@ -220,11 +221,98 @@ Cosmological parameters Input/Output
 void rec_get_cosmoparam(FILE *fin, FILE *fout, REC_COSMOPARAMS *param)
 {
   double Omega_b, Omega_cb, Omega_k, y, Tnu0;
+  char Param_Name[20]; // A prompt string
   int i;
+
+  if (fscanf(fin, "%s", Param_Name) != 1)
+  {
+    if (fout != NULL)
+      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Param_Name'\n");
+    exit(1);
+  };
+  if (fscanf(fin, "%lg", &(param->inj_params->pann)) != 1)
+  {
+    if (fout != NULL)
+      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'pann'\n");
+    exit(1);
+  };
+  if (fscanf(fin, "%s", Param_Name) != 1)
+  {
+    if (fout != NULL)
+      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Param_Name'\n");
+    exit(1);
+  };
+  if (fscanf(fin, "%lg", &(param->inj_params->decay)) != 1)
+  {
+    if (fout != NULL)
+      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'decay'\n");
+    exit(1);
+  };
+  if (fscanf(fin, "%s", Param_Name) != 1)
+  {
+    if (fout != NULL)
+      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Param_Name'\n");
+    exit(1);
+  };
+  if (fscanf(fin, "%lg", &(param->inj_params->Mdm)) != 1)
+  {
+    if (fout != NULL)
+      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Mdm'\n");
+    exit(1);
+  }
+  if (fscanf(fin, "%s", Param_Name) != 1)
+  {
+    if (fout != NULL)
+      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Param_Name'\n");
+    exit(1);
+  };
+  if (fscanf(fin, "%lg", &(param->inj_params->DM_Channel)) != 1)
+  {
+    if (fout != NULL)
+      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'DM_Channel'\n");
+    exit(1);
+  }
+  if (fscanf(fin, "%s", Param_Name) != 1)
+  {
+    if (fout != NULL)
+      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Param_Name'\n");
+    exit(1);
+  };
+  if (fscanf(fin, "%lg", &(param->inj_params->Mpbh)) != 1)
+  {
+    if (fout != NULL)
+      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Mpbh'\n");
+    exit(1);
+  };
+  if (fscanf(fin, "%s", Param_Name) != 1)
+  {
+    if (fout != NULL)
+      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Param_Name'\n");
+    exit(1);
+  };
+  if (fscanf(fin, "%lg", &(param->inj_params->fpbh)) != 1)
+  {
+    if (fout != NULL)
+      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'fpbh'\n");
+    exit(1);
+  };
+
+  if (fscanf(fin, "%s", Param_Name) != 1)
+  {
+    if (fout != NULL)
+      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Param_Name'\n");
+    exit(1);
+  };
   if (fscanf(fin, "%lg", &(param->h)) != 1)
   {
     if (fout != NULL)
       fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'h'\n");
+    exit(1);
+  };
+  if (fscanf(fin, "%s", Param_Name) != 1)
+  {
+    if (fout != NULL)
+      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Param_Name'\n");
     exit(1);
   };
   if (fscanf(fin, "%lg", &(param->T0)) != 1)
@@ -233,10 +321,22 @@ void rec_get_cosmoparam(FILE *fin, FILE *fout, REC_COSMOPARAMS *param)
       fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'CMB temperature today [Kelvin]'\n");
     exit(1);
   };
+  if (fscanf(fin, "%s", Param_Name) != 1)
+  {
+    if (fout != NULL)
+      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Param_Name'\n");
+    exit(1);
+  };
   if (fscanf(fin, "%lg", &(Omega_b)) != 1)
   {
     if (fout != NULL)
       fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Omega_b'\n");
+    exit(1);
+  };
+  if (fscanf(fin, "%s", Param_Name) != 1)
+  {
+    if (fout != NULL)
+      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Param_Name'\n");
     exit(1);
   };
   if (fscanf(fin, "%lg", &(Omega_cb)) != 1)
@@ -245,10 +345,22 @@ void rec_get_cosmoparam(FILE *fin, FILE *fout, REC_COSMOPARAMS *param)
       fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Omega_cb'\n");
     exit(1);
   };
+  if (fscanf(fin, "%s", Param_Name) != 1)
+  {
+    if (fout != NULL)
+      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Param_Name'\n");
+    exit(1);
+  };
   if (fscanf(fin, "%lg", &(Omega_k)) != 1)
   {
     if (fout != NULL)
       fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Omega_k'\n");
+    exit(1);
+  };
+  if (fscanf(fin, "%s", Param_Name) != 1)
+  {
+    if (fout != NULL)
+      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Param_Name'\n");
     exit(1);
   };
   if (fscanf(fin, "%lg %lg", &(param->w0), &(param->wa)) != 2)
@@ -257,10 +369,22 @@ void rec_get_cosmoparam(FILE *fin, FILE *fout, REC_COSMOPARAMS *param)
       fprintf(fout, "Error in rec_get_cosmoparam when reading parameters 'w wa'\n");
     exit(1);
   };
+  if (fscanf(fin, "%s", Param_Name) != 1)
+  {
+    if (fout != NULL)
+      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Param_Name'\n");
+    exit(1);
+  };
   if (fscanf(fin, "%lg", &(param->Nmnu)) != 1)
   {
     if (fout != NULL)
       fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Nmnu'\n");
+    exit(1);
+  };
+  if (fscanf(fin, "%s", Param_Name) != 1)
+  {
+    if (fout != NULL)
+      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Param_Name'\n");
     exit(1);
   };
   if (fscanf(fin, "%lg", &(param->mnu[0])) != 1)
@@ -269,10 +393,22 @@ void rec_get_cosmoparam(FILE *fin, FILE *fout, REC_COSMOPARAMS *param)
       fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'mnu1'\n");
     exit(1);
   };
+  if (fscanf(fin, "%s", Param_Name) != 1)
+  {
+    if (fout != NULL)
+      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Param_Name'\n");
+    exit(1);
+  };
   if (fscanf(fin, "%lg", &(param->mnu[1])) != 1)
   {
     if (fout != NULL)
       fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'mnu2'\n");
+    exit(1);
+  };
+  if (fscanf(fin, "%s", Param_Name) != 1)
+  {
+    if (fout != NULL)
+      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Param_Name'\n");
     exit(1);
   };
   if (fscanf(fin, "%lg", &(param->mnu[2])) != 1)
@@ -281,11 +417,22 @@ void rec_get_cosmoparam(FILE *fin, FILE *fout, REC_COSMOPARAMS *param)
       fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'mnu3'\n");
     exit(1);
   };
-
+  if (fscanf(fin, "%s", Param_Name) != 1)
+  {
+    if (fout != NULL)
+      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Param_Name'\n");
+    exit(1);
+  };
   if (fscanf(fin, "%lg", &(param->YHe)) != 1)
   {
     if (fout != NULL)
-      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Y'\n");
+      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'YHe'\n");
+    exit(1);
+  };
+  if (fscanf(fin, "%s", Param_Name) != 1)
+  {
+    if (fout != NULL)
+      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Param_Name'\n");
     exit(1);
   };
   if (fscanf(fin, "%lg", &(param->Neff)) != 1)
@@ -294,10 +441,22 @@ void rec_get_cosmoparam(FILE *fin, FILE *fout, REC_COSMOPARAMS *param)
       fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'N_eff'\n");
     exit(1);
   };
+  if (fscanf(fin, "%s", Param_Name) != 1)
+  {
+    if (fout != NULL)
+      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Param_Name'\n");
+    exit(1);
+  };
   if (fscanf(fin, "%lg", &(param->fsR)) != 1)
   {
     if (fout != NULL)
       fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'fsR'\n");
+    exit(1);
+  };
+  if (fscanf(fin, "%s", Param_Name) != 1)
+  {
+    if (fout != NULL)
+      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Param_Name'\n");
     exit(1);
   };
   if (fscanf(fin, "%lg", &(param->meR)) != 1)
@@ -325,43 +484,33 @@ void rec_get_cosmoparam(FILE *fin, FILE *fout, REC_COSMOPARAMS *param)
   }
 
   param->odeh2 = (1. - Omega_cb - Omega_k - param->orh2 / param->h / param->h - param->onuh2 / param->h / param->h) * param->h * param->h;
-  param->nH0 = 11.223846333047e-6 * param->obh2 * (1. - param->YHe); // number density of hudrogen today in cm-3
+  param->nH0 = 11.223846333047e-6 * param->obh2 * (1. - param->YHe); // number density of hydrogen today in cm-3
   param->fHe = param->YHe / (1 - param->YHe) / 3.97153;              // abundance of helium by number
-
-  if (fscanf(fin, "%lg", &(param->inj_params->Mdm)) != 1)
-  {
-    if (fout != NULL)
-      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Mdm'\n");
-    exit(1);
-  }
-  if (fscanf(fin, "%lg", &(param->inj_params->pann)) != 1)
-  {
-    if (fout != NULL)
-      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'pann'\n");
-    exit(1);
-  };
-  if (fscanf(fin, "%lg", &(param->inj_params->decay)) != 1)
-  {
-    if (fout != NULL)
-      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'decay'\n");
-    exit(1);
-  };
-
-  if (fscanf(fin, "%lg", &(param->inj_params->Mpbh)) != 1)
-  {
-    if (fout != NULL)
-      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Mpbh'\n");
-    exit(1);
-  };
-  if (fscanf(fin, "%lg", &(param->inj_params->fpbh)) != 1)
-  {
-    if (fout != NULL)
-      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'fpbh'\n");
-    exit(1);
-  };
-
   param->inj_params->odmh2 = param->ocbh2 - param->obh2;
 
+  // Make sure all params are correctly passed
+  /*
+  printf("Pann = %E\n", param->inj_params->pann);
+  printf("Gamma = %E\n", param->inj_params->decay);
+  printf("Mdm = %f\n", param->inj_params->Mdm);
+  printf("DM_Channel = %f\n", param->inj_params->DM_Channel);
+  printf("Mbh = %f\n", param->inj_params->Mpbh);
+  printf("fbh = %f\n", param->inj_params->fpbh);
+  printf("h = %f\n", param->h);
+  printf("T0 = %f\n", param->T0);
+  printf("Omega_b = %f\n", Omega_b);
+  printf("Omega_cb = %f\n", Omega_cb);
+  printf("Omega_k = %f\n", Omega_k);
+  printf("w0 = %f, wa = %f\n", param->w0, param->wa);
+  printf("Nmnu = %f\n", param->Nmnu);
+  printf("mnu_1 = %f\n", param->mnu[0]);
+  printf("mnu_2 = %f\n", param->mnu[1]);
+  printf("mnu_3 = %f\n", param->mnu[2]);
+  printf("YHe = %f\n", param->YHe);
+  printf("Neff = %f\n", param->Neff);
+  printf("fsR = %f\n", param->fsR);
+  printf("meR = %f\n", param->meR);
+  */
   if (MODEL == SWIFT)
     param->dlna = DLNA_SWIFT;
   else
@@ -403,13 +552,14 @@ Added December 2014: possibility of additional energy deposition dEdtdV in eV/s/
 
 double rec_dTmdlna(double z, double xe, double Tm, REC_COSMOPARAMS *cosmo, double dEdtdV_Heat, double H)
 {
+  // Get dT/dlna
   double fsR = cosmo->fsR;
   double meR = cosmo->meR;
   double Tr = cosmo->T0 * (1. + z);
   double nH = cosmo->nH0 * cube(1. + z);
   double Q_adia = -2. * Tm;
   double Q_compt = fsR * fsR / meR / meR / meR * 4.91466895548409e-22 * Tr * Tr * Tr * Tr * xe / (1. + xe + cosmo->fHe) * (Tr - Tm) / H;
-  double Q_dm =  dEdtdV_Heat / kBoltz / (1.5 * nH * (1. + xe + cosmo->fHe)) / H;
+  double Q_dm = dEdtdV_Heat / kBoltz / (1.5 * nH * (1. + xe + cosmo->fHe)) / H;
   // return ((Tr / Tm - 1. < 1e-10 && Tr > 3000.) ? -Tr : -2. * Tm + fsR * fsR / meR / meR / meR * 4.91466895548409e-22 * Tr * Tr * Tr * Tr * xe / (1. + xe + cosmo->fHe) * (Tr - Tm) / H + (1. + 2. * xe) / 3. * dEdtdV / kBoltz / (1.5 * nH * (1. + xe + cosmo->fHe)) / H);
   return ((Tr / Tm - 1. < 1e-10 && Tr > 3000.) ? -Tr : Q_adia + Q_compt + Q_dm);
   /* Coefficient = 8 sigma_T a_r / (3 m_e c) */
@@ -796,6 +946,7 @@ Added July 2020: Implicit integration for Tm
 
 char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
 {
+  // jsc
 
   REC_COSMOPARAMS *cosmo = data->cosmo;
   int *error = &data->error;
@@ -826,7 +977,10 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
   {
     z = (1. + zstart) * exp(-cosmo->dlna * iz) - 1.;
     xe_output[iz] = rec_xesaha_HeII_III(cosmo, z, &Delta_xe);
+    // Ensure that xe does not exceed the full-ionisation ceiling
+    xe_output[iz] = fmin(xe_output[iz], Xe_Max);
     Tm_output[iz] = cosmo->T0 * (1. + z);
+    // printf("Stage_1 %f  %f  %f\n", z, xe_output[iz], Tm_output[iz]);//jsc
   }
 
   /******** He II -> I recombination.
@@ -899,6 +1053,8 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
       Tm_output[iz] = rec_Tmss(z, xe_output[iz], cosmo, 0., H);
     }
 
+    xe_output[iz] = fmin(xe_output[iz], Xe_Max);
+    // printf("Stage_2 %f  %f  %f\n", z, xe_output[iz], Tm_output[iz]);
     if (*error == 1)
       return data->error_message;
   }
@@ -925,7 +1081,7 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
 
   *ion = dEdVdt_deposited(z, cosmo->inj_params, 1) / nH / EI;
   *exclya = dEdVdt_deposited(z, cosmo->inj_params, 3) / nH / E21;
-  
+
   for (; z >= 0. && xHeII > XHEII_MIN; iz++)
   {
 
@@ -942,10 +1098,12 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
     nH = cosmo->nH0 * cube(1. + z);
     dEdtdV_Heat = dEdVdt_deposited(z, cosmo->inj_params, 4);
     Tm_output[iz] = rec_Tmss(z, xe_output[iz], cosmo, dEdtdV_Heat, H);
-  
+
     *ion = dEdVdt_deposited(z, cosmo->inj_params, 1) / nH / EI;
     *exclya = dEdVdt_deposited(z, cosmo->inj_params, 3) / nH / E21;
-  
+    xe_output[iz] = fmin(xe_output[iz], Xe_Max);
+    // printf("Stage_3 %f  %f  %f\n", z, xe_output[iz], Tm_output[iz]);
+
     if (*error == 1)
       return data->error_message;
   }
@@ -973,10 +1131,9 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
           H = rec_HubbleRate(cosmo, z);
         else
           H = rec_interp1d(.0, dz, hubble_array, Nz, z, error, data->error_message);
-        
+
         *ion = dEdVdt_deposited(z, cosmo->inj_params, 1) / nH / EI;
         *exclya = dEdVdt_deposited(z, cosmo->inj_params, 3) / nH / E21;
-  
       }
       xe_output[iz] = xe_i;
       Tm_output[iz] = Tm_i;
@@ -986,7 +1143,6 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
       if (fabs(1 - dxHIIdlna_prev[1] / dxHIIdlna_prev[0]) < DXHII_DIFF_MAX)
         data->loop_after_quasi = 0;
     }
-
     else
     {
       rec_get_xe_next1_H(data, model, z, iz, xe_output[iz - 1], Tm_output[iz - 1], xe_output + iz, Tm_output + iz,
@@ -1007,8 +1163,10 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
 
       *ion = dEdVdt_deposited(z, cosmo->inj_params, 1) / nH / EI;
       *exclya = dEdVdt_deposited(z, cosmo->inj_params, 3) / nH / E21;
-  
     }
+
+    xe_output[iz] = fmin(xe_output[iz], Xe_Max);
+    // printf("Stage_4 %f  %f  %f\n", z, xe_output[iz], Tm_output[iz]);
     if (*error == 1)
       return data->error_message;
   }
@@ -1058,6 +1216,8 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
     *ion = dEdVdt_deposited(z, cosmo->inj_params, 1) / nH / EI;
     *exclya = dEdVdt_deposited(z, cosmo->inj_params, 3) / nH / E21;
 
+    xe_output[iz] = fmin(xe_output[iz], Xe_Max);
+    // printf("Stage_5 %f  %f  %f\n", z, xe_output[iz], Tm_output[iz]);
     if (*error == 1)
       return data->error_message;
   }
