@@ -16,12 +16,21 @@ fprintf(FileID,'#define Electron_Mass_eV    510998.946\n');
 fprintf(FileID,'#define Kinetic_Energy_Axis_Size	40\n');
 fprintf(FileID,'#define Mdm_Axis_Size	62\n\n');
 
+fprintf(FileID,'#define Kerr_PBH_Temperature_Size	200\n\n');
+
 fclose(FileID);
 
 % -- Redshift (1+z)
 
 Input = 'EFF/Redshift_1.txt';
 Tab_Name = 'Redshift_Axis';
+Printer(Input, Tab_Name)
+
+
+% -- Kerr PBH Temperature
+
+Input = 'EFF/PBH_Temperature_1.txt';
+Tab_Name = 'Kerr_PBH_Temperature_Axis';
 Printer(Input, Tab_Name)
 
 % -- Kinetic Energy
@@ -450,3 +459,178 @@ Printer(Input, Tab_Name)
 Input = 'EFF/Gluon_Heat_DEC.txt';
 Tab_Name = 'EFF_Gluon_Heat_Decay';
 Printer(Input, Tab_Name)
+
+% -- Hawking K1 ----
+
+% HIon
+Input = 'EFF/PBH_HIon_K1.txt';
+Tab_Name = 'EFF_Hawking_HIon_K1';
+Printer(Input, Tab_Name)
+
+Input = 'EFF/PBH_HIon_K1B.txt';
+Tab_Name = 'EFF_Hawking_HIon_K1B';
+Printer(Input, Tab_Name)
+
+% LyA
+Input = 'EFF/PBH_LyA_K1.txt';
+Tab_Name = 'EFF_Hawking_LyA_K1';
+Printer(Input, Tab_Name)
+
+Input = 'EFF/PBH_LyA_K1B.txt';
+Tab_Name = 'EFF_Hawking_LyA_K1B';
+Printer(Input, Tab_Name)
+
+% Heat
+Input = 'EFF/PBH_Heat_K1.txt';
+Tab_Name = 'EFF_Hawking_Heat_K1';
+Printer(Input, Tab_Name)
+
+Input = 'EFF/PBH_Heat_K1B.txt';
+Tab_Name = 'EFF_Hawking_Heat_K1B';
+Printer(Input, Tab_Name)
+
+% -- Hawking K2 ----
+
+% HIon
+Input = 'EFF/PBH_HIon_K2.txt';
+Tab_Name = 'EFF_Hawking_HIon_K2';
+Printer(Input, Tab_Name)
+
+Input = 'EFF/PBH_HIon_K2B.txt';
+Tab_Name = 'EFF_Hawking_HIon_K2B';
+Printer(Input, Tab_Name)
+
+% LyA
+Input = 'EFF/PBH_LyA_K2.txt';
+Tab_Name = 'EFF_Hawking_LyA_K2';
+Printer(Input, Tab_Name)
+
+Input = 'EFF/PBH_LyA_K2B.txt';
+Tab_Name = 'EFF_Hawking_LyA_K2B';
+Printer(Input, Tab_Name)
+
+% Heat
+Input = 'EFF/PBH_Heat_K2.txt';
+Tab_Name = 'EFF_Hawking_Heat_K2';
+Printer(Input, Tab_Name)
+
+Input = 'EFF/PBH_Heat_K2B.txt';
+Tab_Name = 'EFF_Hawking_Heat_K2B';
+Printer(Input, Tab_Name)
+
+% -- Hawking K3 ----
+
+% HIon
+Input = 'EFF/PBH_HIon_K3.txt';
+Tab_Name = 'EFF_Hawking_HIon_K3';
+Printer(Input, Tab_Name)
+
+Input = 'EFF/PBH_HIon_K3B.txt';
+Tab_Name = 'EFF_Hawking_HIon_K3B';
+Printer(Input, Tab_Name)
+
+% LyA
+Input = 'EFF/PBH_LyA_K3.txt';
+Tab_Name = 'EFF_Hawking_LyA_K3';
+Printer(Input, Tab_Name)
+
+Input = 'EFF/PBH_LyA_K3B.txt';
+Tab_Name = 'EFF_Hawking_LyA_K3B';
+Printer(Input, Tab_Name)
+
+% Heat
+Input = 'EFF/PBH_Heat_K3.txt';
+Tab_Name = 'EFF_Hawking_Heat_K3';
+Printer(Input, Tab_Name)
+
+Input = 'EFF/PBH_Heat_K3B.txt';
+Tab_Name = 'EFF_Hawking_Heat_K3B';
+Printer(Input, Tab_Name)
+
+% -- Hawking K4 ----
+
+% HIon
+Input = 'EFF/PBH_HIon_K4.txt';
+Tab_Name = 'EFF_Hawking_HIon_K4';
+Printer(Input, Tab_Name)
+
+Input = 'EFF/PBH_HIon_K4B.txt';
+Tab_Name = 'EFF_Hawking_HIon_K4B';
+Printer(Input, Tab_Name)
+
+% LyA
+Input = 'EFF/PBH_LyA_K4.txt';
+Tab_Name = 'EFF_Hawking_LyA_K4';
+Printer(Input, Tab_Name)
+
+Input = 'EFF/PBH_LyA_K4B.txt';
+Tab_Name = 'EFF_Hawking_LyA_K4B';
+Printer(Input, Tab_Name)
+
+% Heat
+Input = 'EFF/PBH_Heat_K4.txt';
+Tab_Name = 'EFF_Hawking_Heat_K4';
+Printer(Input, Tab_Name)
+
+Input = 'EFF/PBH_Heat_K4B.txt';
+Tab_Name = 'EFF_Hawking_Heat_K4B';
+Printer(Input, Tab_Name)
+
+% -- Hawking K5 ----
+
+% HIon
+Input = 'EFF/PBH_HIon_K5.txt';
+Tab_Name = 'EFF_Hawking_HIon_K5';
+Printer(Input, Tab_Name)
+
+Input = 'EFF/PBH_HIon_K5B.txt';
+Tab_Name = 'EFF_Hawking_HIon_K5B';
+Printer(Input, Tab_Name)
+
+% LyA
+Input = 'EFF/PBH_LyA_K5.txt';
+Tab_Name = 'EFF_Hawking_LyA_K5';
+Printer(Input, Tab_Name)
+
+Input = 'EFF/PBH_LyA_K5B.txt';
+Tab_Name = 'EFF_Hawking_LyA_K5B';
+Printer(Input, Tab_Name)
+
+% Heat
+Input = 'EFF/PBH_Heat_K5.txt';
+Tab_Name = 'EFF_Hawking_Heat_K5';
+Printer(Input, Tab_Name)
+
+Input = 'EFF/PBH_Heat_K5B.txt';
+Tab_Name = 'EFF_Hawking_Heat_K5B';
+Printer(Input, Tab_Name)
+
+% -- Hawking K6 ----
+
+% HIon
+Input = 'EFF/PBH_HIon_K6.txt';
+Tab_Name = 'EFF_Hawking_HIon_K6';
+Printer(Input, Tab_Name)
+
+Input = 'EFF/PBH_HIon_K6B.txt';
+Tab_Name = 'EFF_Hawking_HIon_K6B';
+Printer(Input, Tab_Name)
+
+% LyA
+Input = 'EFF/PBH_LyA_K6.txt';
+Tab_Name = 'EFF_Hawking_LyA_K6';
+Printer(Input, Tab_Name)
+
+Input = 'EFF/PBH_LyA_K6B.txt';
+Tab_Name = 'EFF_Hawking_LyA_K6B';
+Printer(Input, Tab_Name)
+
+% Heat
+Input = 'EFF/PBH_Heat_K6.txt';
+Tab_Name = 'EFF_Hawking_Heat_K6';
+Printer(Input, Tab_Name)
+
+Input = 'EFF/PBH_Heat_K6B.txt';
+Tab_Name = 'EFF_Hawking_Heat_K6B';
+Printer(Input, Tab_Name)
+

@@ -1,15 +1,19 @@
 pann:
-1E-25
+0
 Gamma:
-1E-24
+0
 Mdm:
 1
 DM_Channel:
 2.
-Mpbh:
-1
-fpbh:
+PBH_Model:
+2
+PBH_Spin:
 0.
+Mpbh:
+1E15
+fpbh:
+1E-20
 hubble:
 0.6735837
 Tcmb:
@@ -38,7 +42,6 @@ fsR:
 1.
 meR:
 1.
-
 
 
 =====================================================================

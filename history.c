@@ -41,6 +41,7 @@
 #include "history.h"
 #include "helium.h"
 #define Xe_Max 1.1634102476
+#define debug_mode 1
 /*************************************************************************************
 Hubble expansion rate in sec^-1.
 *************************************************************************************/
@@ -138,6 +139,9 @@ void rec_build_history_camb_(const double *OmegaC, const double *OmegaB, const d
   rec_data.cosmo->inj_params->DM_Channel = 0.;
 
   /* Primodial black hole parameters */
+  rec_data.cosmo->inj_params->PBH_Model = 1.;
+  rec_data.cosmo->inj_params->PBH_Spin = 0.;
+
   rec_data.cosmo->inj_params->Mpbh = 1.;
   rec_data.cosmo->inj_params->fpbh = 0.;
 
@@ -272,6 +276,31 @@ void rec_get_cosmoparam(FILE *fin, FILE *fout, REC_COSMOPARAMS *param)
       fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'DM_Channel'\n");
     exit(1);
   }
+
+  if (fscanf(fin, "%s", Param_Name) != 1)
+  {
+    if (fout != NULL)
+      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Param_Name'\n");
+    exit(1);
+  };
+  if (fscanf(fin, "%lg", &(param->inj_params->PBH_Model)) != 1)
+  {
+    if (fout != NULL)
+      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'PBH_Model'\n");
+    exit(1);
+  };
+  if (fscanf(fin, "%s", Param_Name) != 1)
+  {
+    if (fout != NULL)
+      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Param_Name'\n");
+    exit(1);
+  };
+  if (fscanf(fin, "%lg", &(param->inj_params->PBH_Spin)) != 1)
+  {
+    if (fout != NULL)
+      fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'PBH_Spin'\n");
+    exit(1);
+  };
   if (fscanf(fin, "%s", Param_Name) != 1)
   {
     if (fout != NULL)
@@ -284,6 +313,7 @@ void rec_get_cosmoparam(FILE *fin, FILE *fout, REC_COSMOPARAMS *param)
       fprintf(fout, "Error in rec_get_cosmoparam when reading parameter 'Mpbh'\n");
     exit(1);
   };
+
   if (fscanf(fin, "%s", Param_Name) != 1)
   {
     if (fout != NULL)
@@ -964,6 +994,8 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
   int flag = 10;
   double xe_i, Tm_i;
 
+  Validate_Inputs(cosmo->inj_params);
+
   DLNA = cosmo->dlna;
   dz = zstart / Nz;
   // Index at which we start integrating Hydrogen recombination, and corresponding redshift
@@ -980,7 +1012,10 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
     xe_output[iz] = fmin(xe_output[iz], Xe_Max);
     Tm_output[iz] = cosmo->T0 * (1. + z);
     Check_Error(xe_output[iz], Tm_output[iz]);
-    printf("Stage_1 %f  %f  %f\n", z, xe_output[iz], Tm_output[iz]);
+    if (debug_mode)
+    {
+      printf("Stage_1: z = %f, xe = %f, T = %f\n", z, xe_output[iz], Tm_output[iz]);
+    }
   }
 
   /******** He II -> I recombination.
@@ -1055,7 +1090,10 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
 
     xe_output[iz] = fmin(xe_output[iz], Xe_Max);
     Check_Error(xe_output[iz], Tm_output[iz]);
-    printf("Stage_2 %f  %f  %f\n", z, xe_output[iz], Tm_output[iz]);
+    if (debug_mode)
+    {
+      printf("Stage_2: z = %f, xe = %f, T = %f\n", z, xe_output[iz], Tm_output[iz]);
+    }
     if (*error == 1)
       return data->error_message;
   }
@@ -1104,8 +1142,11 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
     *exclya = dEdVdt_deposited(z, cosmo->inj_params, 3) / nH / E21;
     xe_output[iz] = fmin(xe_output[iz], Xe_Max);
     Check_Error(xe_output[iz], Tm_output[iz]);
-    printf("Stage_3 %f  %f  %f\n", z, xe_output[iz], Tm_output[iz]);
-    
+    if (debug_mode)
+    {
+      printf("Stage_3: z = %f, xe = %f, T = %f\n", z, xe_output[iz], Tm_output[iz]);
+    }
+
     if (*error == 1)
       return data->error_message;
   }
@@ -1169,8 +1210,11 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
 
     xe_output[iz] = fmin(xe_output[iz], Xe_Max);
     Check_Error(xe_output[iz], Tm_output[iz]);
-    printf("Stage_4 %f  %f  %f\n", z, xe_output[iz], Tm_output[iz]);
-    
+    if (debug_mode)
+    {
+      printf("Stage_4: z = %f, xe = %f, T = %f\n", z, xe_output[iz], Tm_output[iz]);
+    }
+
     if (*error == 1)
       return data->error_message;
   }
@@ -1222,8 +1266,11 @@ char *rec_build_history(HYREC_DATA *data, int model, double *hubble_array)
 
     xe_output[iz] = fmin(xe_output[iz], Xe_Max);
     Check_Error(xe_output[iz], Tm_output[iz]);
-    printf("Stage_5 %f  %f  %f\n", z, xe_output[iz], Tm_output[iz]);
-    
+    if (debug_mode)
+    {
+      printf("Stage_5: z = %f, xe = %f, T = %f\n", z, xe_output[iz], Tm_output[iz]);
+    }
+
     if (*error == 1)
       return data->error_message;
   }
